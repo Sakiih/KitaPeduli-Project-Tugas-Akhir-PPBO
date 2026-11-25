@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gHealth" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ecfeff"/>
+      <stop offset="100%" stop-color="#ccfbf1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#gHealth)"/>
+  <circle cx="650" cy="100" r="140" fill="#14b8a6" opacity="0.12"/>
+  <circle cx="150" cy="390" r="160" fill="#06b6d4" opacity="0.12"/>
+  <rect x="275" y="105" width="250" height="220" rx="36" fill="#ffffff" stroke="#99f6e4" stroke-width="3"/>
+  <rect x="380" y="150" width="40" height="130" rx="10" fill="#0d9488"/>
+  <rect x="335" y="195" width="130" height="40" rx="10" fill="#0d9488"/>
+  <text x="400" y="380" font-family="sans-serif" font-size="24" font-weight="700" fill="#0f172a" text-anchor="middle">Bantuan Medis &amp; Kesehatan</text>
+  <text x="400" y="410" font-family="sans-serif" font-size="15" fill="#475569" text-anchor="middle">KitaPeduli • Kampanye Kesehatan Masyarakat</text>
+</svg>
