@@ -160,7 +160,7 @@ Seluruh endpoint REST API **KitaPeduli** menggunakan prefix `/api` dan selalu me
       "status": "pending",
       "instruction": {
         "method_code": "qris",
-        "method_label": "QRIS (Simulasi / Demo)",
+        "method_label": "QRIS (Simulasi Demo)",
         "is_simulation": true,
         "simulation_notice": "SIMULASI / DEMO: Bukan pembayaran nyata",
         "reference": "KP-20261121-ABCD1234",
