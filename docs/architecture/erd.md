@@ -86,7 +86,7 @@ erDiagram
         bigint id PK
         bigint donation_id FK_UK "One-to-One dengan donations"
         string payment_method "qris | bank_transfer"
-        string reference UK "Kode referensi unik (mis. KP-PAY-...)"
+        string reference UK "Kode referensi unik (format KP-YYYYMMDD-XXXXXXXX)"
         string access_token_hash "SHA-256 hash untuk akses Guest/transaksi"
         decimal amount "15,2"
         string status "pending | paid"
@@ -141,7 +141,7 @@ erDiagram
 
 ### 2.2 `categories`
 - **Tujuan**: Menyimpan kategori kampanye donasi (mis. Kesehatan, Pendidikan, Bencana Alam, Kemanusiaan, Panti Asuhan, Lingkungan).
-- **Unique Constraint**: `slug`.
+- **Unique Constraint**: `slug` unik pada level database, sedangkan keunikan `name` ditegakkan pada lapisan aplikasi melalui validasi `StoreCategoryRequest` (`unique:categories,name`, dengan pengecualian ID kategori terkait saat pembaruan).
 - **Relasi**: `1:N` ke `campaigns` (`ON DELETE RESTRICT` agar kategori yang masih memiliki kampanye tidak terhapus sembarangan).
 
 ### 2.3 `campaigns`

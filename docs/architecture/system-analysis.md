@@ -42,7 +42,7 @@ flowchart TD
     end
 
     subgraph HttpLayer["HTTP & Security Layer"]
-        Middleware["Middleware & Authorization\n(Auth, EnsureUserIsAdmin, EnsureActiveUser, PaymentAccess)"]
+        Middleware["Middleware & Authorization\n(Auth, EnsureUserIsAdmin, EnsureUserIsDonor, EnsureActiveUser)"]
         FormRequests["Form Requests Validation\n(StoreDonationRequest, StoreCampaignRequest, dll.)"]
         WebCtrl["Web Controllers\n(Umum + 9 Admin SRP Controllers)"]
         ApiCtrl["API Controllers (/api/*)"]
@@ -82,9 +82,10 @@ flowchart TD
 
 1. **Penentuan `user_id` di Backend**: Backend tidak pernah membaca `user_id` dari body request client. Jika request terautentikasi (melalui session web atau token Bearer Sanctum), `user_id` diambil dari user yang login; jika tidak, `user_id = NULL`.
 2. **Proteksi Transaksi Guest (`access_token_hash`)**:
-   - Saat donasi dibuat, sistem men-generate 40-karakter random token (`plain_token`) dan menyimpan `hash('sha256', $plainToken)` pada kolom `payments.access_token_hash`.
+   - Saat donasi dibuat, sistem men-generate 48-karakter random token (`Str::random(48)`) sebagai `plain_token` dan menyimpan `hash('sha256', $plainToken)` pada kolom `payments.access_token_hash`.
    - Untuk akses REST API, Guest mengirimkan token melalui HTTP Header `X-Transaction-Token` (bukan query string URL).
    - Untuk akses Web Blade, token disimpan di session browser pengguna saat transaksi dibuat.
+   - Otorisasi akses dan simulasi pembayaran tidak menggunakan middleware khusus, melainkan diperiksa langsung melalui `PaymentService::canAccessPayment()` dan `PaymentService::canSimulatePayment()`.
 3. **Pencegahan Double-Submit / Idempotency**:
    - Konfirmasi simulasi pembayaran dijalankan di dalam `DB::transaction()` menggunakan `Payment::where('id', $payment->id)->lockForUpdate()->first()`.
    - Jika status sudah `paid` / `success`, sistem tidak menambahkan nominal ke `campaigns.collected_amount` untuk kedua kalinya.

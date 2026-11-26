@@ -161,14 +161,25 @@ flowchart TD
     AdminCheck -->|Tidak| Deny[Tolak Akses 403]
     Deny --> End([Selesai])
 
-    AdminCheck -->|Ya| SelectCamp[Pilih Kampanye]
-    SelectCamp --> InputUpdate[Isi Judul Kabar Terbaru, Isi Perkembangan,\n& Upload Foto Dokumentasi Opsional]
-    InputUpdate --> ValidateUpd{Validasi Input Valid?}
-    ValidateUpd -->|Tidak| ShowErr[Tampilkan Error Validasi]
-    ShowErr --> InputUpdate
+    AdminCheck -->|Ya| Action{Pilih Aksi Kabar Terbaru}
 
+    Action -->|Tambah Baru| SelectCamp[Pilih Kampanye & Isi Judul, Perkembangan,\nserta Foto Dokumentasi Opsional]
+    SelectCamp --> ValidateUpd{Validasi StoreCampaignUpdateRequest\n& campaign_id Valid?}
+    ValidateUpd -->|Tidak| ShowErr[Tampilkan Error Validasi]
+    ShowErr --> SelectCamp
     ValidateUpd -->|Ya| SaveUpdate[Simpan Record campaign_updates\nbeserta Tanggal Publikasi]
-    SaveUpdate --> DisplayPublic[Kabar Terbaru Tampil pada Tab/Bagian\nKabar Terbaru di Halaman Detail Kampanye Publik]
+    SaveUpdate --> DisplayPublic[Perubahan Tampil pada Bagian Kabar Terbaru\ndi Halaman Detail Kampanye Publik]
+
+    Action -->|Edit via Modal| OpenEditModal[Klik Edit & Ubah Judul, Isi, Tanggal Publikasi,\natau Ganti Foto di Modal]
+    OpenEditModal --> ValidateEdit{Validasi StoreCampaignUpdateRequest\nLolos?}
+    ValidateEdit -->|Tidak| ShowErr
+    ValidateEdit -->|Ya| UpdateRecord[Perbarui Record campaign_updates\n& Hapus Foto Lama Jika Diganti]
+    UpdateRecord --> DisplayPublic
+
+    Action -->|Hapus| ConfirmDelete[Konfirmasi Hapus Kabar Terbaru]
+    ConfirmDelete --> DeleteRecord[Hapus File Foto Terkait & Record dari Database]
+    DeleteRecord --> DisplayPublic
+
     DisplayPublic --> End
 ```
 
@@ -182,13 +193,24 @@ flowchart TD
     AdminCheck -->|Tidak| Deny[Tolak Akses 403]
     Deny --> End([Selesai])
 
-    AdminCheck -->|Ya| SelectCamp[Pilih Kampanye]
-    SelectCamp --> InputDisb[Isi Tanggal Penyaluran, Nominal Penyaluran > 0,\nTujuan/Penerima Manfaat, Deskripsi, & Foto Dokumentasi]
-    InputDisb --> ValidateDisb{Validasi Input Valid?}
-    ValidateDisb -->|Tidak| ShowErr[Tampilkan Error Validasi]
-    ShowErr --> InputDisb
+    AdminCheck -->|Ya| Action{Pilih Aksi Penyaluran Dana}
 
-    ValidateDisb -->|Ya| SaveDisb[Cek Saldo Tersedia Kampanye dengan lockForUpdate\n& Simpan Record fund_disbursement_reports]
-    SaveDisb --> DisplayPublic[Tampilkan pada Bagian Pencairan Dana / Laporan Penyaluran\ndi Halaman Detail Kampanye Publik]
+    Action -->|Catat Baru| InputDisb[Pilih Kampanye & Isi Judul, Nominal, Penerima,\nKeperluan, Tanggal, Deskripsi, & Dokumentasi]
+    InputDisb --> ValidateDisb{Validasi Request & Saldo Tersedia\nvia lockForUpdate Mencukupi?}
+    ValidateDisb -->|Tidak| ShowErr[Tampilkan Error Validasi / Saldo Tidak Cukup]
+    ShowErr --> InputDisb
+    ValidateDisb -->|Ya| SaveDisb[Simpan Record fund_disbursement_reports]
+    SaveDisb --> DisplayPublic[Perubahan Tampil pada Bagian Pencairan Dana\ndi Halaman Detail Kampanye Publik]
+
+    Action -->|Edit via Modal| OpenEditDisb[Klik Edit & Ubah Data Penyaluran di Modal]
+    OpenEditDisb --> ValidateEditDisb{Validasi Request & Saldo Tersedia\nKecuali Record Ini Mencukupi?}
+    ValidateEditDisb -->|Tidak| ShowErr
+    ValidateEditDisb -->|Ya| UpdateDisb[Perbarui Record & Ganti Dokumentasi Jika Ada]
+    UpdateDisb --> DisplayPublic
+
+    Action -->|Hapus| ConfirmDisb[Konfirmasi Hapus Catatan Penyaluran]
+    ConfirmDisb --> DeleteDisb[Hapus File Dokumentasi Terkait & Record dari Database]
+    DeleteDisb --> DisplayPublic
+
     DisplayPublic --> End
 ```
