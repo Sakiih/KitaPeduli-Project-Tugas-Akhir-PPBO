@@ -58,6 +58,20 @@ class AdminDashboardApiController extends Controller
 
     public function donationReport(Request $request): JsonResponse
     {
+        $endDateRules = ['nullable', 'date'];
+        if ($request->filled('start_date')) {
+            $endDateRules[] = 'after_or_equal:start_date';
+        }
+
+        $request->validate([
+            'start_date' => ['nullable', 'date'],
+            'end_date' => $endDateRules,
+        ], [
+            'start_date.date' => 'Format tanggal mulai tidak valid.',
+            'end_date.date' => 'Format tanggal akhir tidak valid.',
+            'end_date.after_or_equal' => 'Tanggal akhir harus sama dengan atau setelah tanggal mulai.',
+        ]);
+
         $query = Donation::with(['campaign:id,title,slug', 'payment', 'user:id,name,email'])
             ->where('status', Donation::STATUS_SUCCESS);
 

@@ -31,7 +31,7 @@
         <div class="lg:col-span-8 bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
             <h2 class="text-base font-extrabold text-slate-900 mb-4">Daftar Kategori ({{ $categories->count() }})</h2>
             <div class="space-y-3">
-                @foreach($categories as $category)
+                @forelse($categories as $category)
                     <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" class="flex-1 grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
                             @csrf
@@ -60,7 +60,7 @@
                                 {{ $category->campaigns_count }} Kampanye
                             </span>
 
-                            @if($category->canBeDeleted())
+                            @if((int) $category->campaigns_count === 0)
                                 <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST"
                                       onsubmit="return confirm('Hapus kategori ini?')">
                                     @csrf
@@ -73,7 +73,11 @@
                             @endif
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                        Belum ada kategori kampanye yang terdaftar.
+                    </div>
+                @endforelse
             </div>
         </div>
     </div>

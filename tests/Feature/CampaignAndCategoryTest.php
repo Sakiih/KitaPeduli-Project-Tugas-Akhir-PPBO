@@ -146,4 +146,116 @@ class CampaignAndCategoryTest extends TestCase
             ->assertNotFound()
             ->assertJsonPath('success', false);
     }
+
+    public function test_category_name_must_be_unique_except_own_record_on_update(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $first = Category::create(['name' => 'Pendidikan', 'slug' => 'pendidikan']);
+        Category::create(['name' => 'Kesehatan', 'slug' => 'kesehatan']);
+
+        $this->actingAs($admin, 'sanctum')
+            ->postJson('/api/admin/categories', ['name' => 'Pendidikan'])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['name']);
+
+        $this->actingAs($admin, 'sanctum')
+            ->putJson("/api/admin/categories/{$first->id}", [
+                'name' => 'Pendidikan',
+                'description' => 'Deskripsi diperbarui.',
+            ])->assertOk();
+
+        $this->actingAs($admin, 'sanctum')
+            ->putJson("/api/admin/categories/{$first->id}", [
+                'name' => 'Kesehatan',
+            ])->assertStatus(422)
+            ->assertJsonValidationErrors(['name']);
+    }
+
+    public function test_api_campaigns_sort_latest_orders_by_created_at_desc_without_featured_override(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $category = Category::create(['name' => 'Bencana', 'slug' => 'bencana']);
+
+        $olderFeatured = Campaign::create([
+            'category_id' => $category->id,
+            'created_by' => $admin->id,
+            'title' => 'Kampanye Unggulan Lama',
+            'slug' => 'kampanye-unggulan-lama',
+            'story' => 'Cerita.',
+            'target_amount' => 10000000,
+            'end_date' => now()->addDays(20)->toDateString(),
+            'organizer_name' => 'Yayasan A',
+            'is_featured' => true,
+            'status' => Campaign::STATUS_ACTIVE,
+        ]);
+        $olderFeatured->timestamps = false;
+        $olderFeatured->forceFill(['created_at' => now()->subDays(3)])->save();
+
+        $newerRegular = Campaign::create([
+            'category_id' => $category->id,
+            'created_by' => $admin->id,
+            'title' => 'Kampanye Reguler Terbaru',
+            'slug' => 'kampanye-reguler-terbaru',
+            'story' => 'Cerita.',
+            'target_amount' => 10000000,
+            'end_date' => now()->addDays(20)->toDateString(),
+            'organizer_name' => 'Yayasan B',
+            'is_featured' => false,
+            'status' => Campaign::STATUS_ACTIVE,
+        ]);
+        $newerRegular->timestamps = false;
+        $newerRegular->forceFill(['created_at' => now()])->save();
+
+        $this->getJson('/api/campaigns?sort=latest')
+            ->assertOk()
+            ->assertJsonPath('data.0.id', $newerRegular->id);
+
+        $this->getJson('/api/campaigns?sort=featured')
+            ->assertOk()
+            ->assertJsonPath('data.0.id', $olderFeatured->id);
+    }
+
+    public function test_campaign_update_validates_date_range_including_partial_updates(): void
+    {
+        $admin = User::factory()->admin()->create();
+        $category = Category::create(['name' => 'Sosial', 'slug' => 'sosial']);
+
+        $campaign = Campaign::create([
+            'category_id' => $category->id,
+            'created_by' => $admin->id,
+            'title' => 'Kampanye Rentang Tanggal',
+            'slug' => 'kampanye-rentang-tanggal',
+            'story' => 'Cerita.',
+            'target_amount' => 10000000,
+            'start_date' => '2026-06-10',
+            'end_date' => '2026-06-20',
+            'organizer_name' => 'Yayasan Sosial',
+            'status' => Campaign::STATUS_ACTIVE,
+        ]);
+
+        $this->actingAs($admin, 'sanctum')
+            ->putJson("/api/admin/campaigns/{$campaign->id}", [
+                'start_date' => '2026-06-25',
+            ])->assertStatus(422)
+            ->assertJsonValidationErrors(['end_date']);
+
+        $this->actingAs($admin, 'sanctum')
+            ->putJson("/api/admin/campaigns/{$campaign->id}", [
+                'end_date' => '2026-06-05',
+            ])->assertStatus(422)
+            ->assertJsonValidationErrors(['end_date']);
+
+        $this->actingAs($admin, 'sanctum')
+            ->putJson("/api/admin/campaigns/{$campaign->id}", [
+                'start_date' => '2026-06-25',
+                'end_date' => '2026-06-20',
+            ])->assertStatus(422)
+            ->assertJsonValidationErrors(['end_date']);
+
+        $this->actingAs($admin, 'sanctum')
+            ->putJson("/api/admin/campaigns/{$campaign->id}", [
+                'end_date' => '2026-06-25',
+            ])->assertOk()
+            ->assertJsonPath('data.end_date', '2026-06-25');
+    }
 }

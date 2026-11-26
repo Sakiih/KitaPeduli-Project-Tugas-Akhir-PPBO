@@ -90,7 +90,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
-                            @foreach($recentDonations as $don)
+                            @forelse($recentDonations as $don)
                                 <tr class="hover:bg-slate-50">
                                     <td class="py-3 px-3 font-mono font-bold text-slate-900">
                                         {{ $don->payment?->reference ?? '-' }}
@@ -114,7 +114,13 @@
                                         </span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="py-8 px-4 text-center text-xs text-slate-500">
+                                        Belum ada transaksi donasi terbaru.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -129,7 +135,7 @@
                 </div>
 
                 <div class="space-y-4">
-                    @foreach($topCampaigns as $camp)
+                    @forelse($topCampaigns as $camp)
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2">
                             <div class="flex items-start justify-between gap-2">
                                 <h3 class="text-xs font-bold text-slate-900 leading-snug">{{ $camp->title }}</h3>
@@ -145,7 +151,11 @@
                                 <span>{{ $camp->donor_count }} Donasi</span>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                            Belum ada kampanye yang terdaftar.
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

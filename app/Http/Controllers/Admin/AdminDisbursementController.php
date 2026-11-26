@@ -17,7 +17,11 @@ class AdminDisbursementController extends Controller
 {
     public function index(Request $request): View
     {
-        $campaigns = Campaign::orderBy('title')->get();
+        $campaigns = Campaign::query()
+            ->withSum('successfulDonations as total_collected_sum', 'amount')
+            ->withSum(['disbursementReports as total_disbursed_sum' => fn ($query) => $query->reorder()], 'amount')
+            ->orderBy('title')
+            ->get();
         $query = FundDisbursementReport::with(['campaign', 'author']);
 
         if ($request->filled('campaign_id')) {

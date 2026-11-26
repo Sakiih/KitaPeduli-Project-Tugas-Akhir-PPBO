@@ -6,7 +6,9 @@ namespace App\Http\Requests;
 
 use App\Models\Campaign;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Validator;
 
 class UpdateCampaignRequest extends FormRequest
 {
@@ -53,5 +55,38 @@ class UpdateCampaignRequest extends FormRequest
                 'is_verified_organizer' => filter_var($this->input('is_verified_organizer'), FILTER_VALIDATE_BOOLEAN),
             ]);
         }
+    }
+
+    public function withValidator(Validator $validator): void
+    {
+        $validator->after(function (Validator $validator): void {
+            if ($validator->errors()->hasAny(['start_date', 'end_date'])) {
+                return;
+            }
+
+            $routeCampaign = $this->route('campaign') ?? $this->route('id');
+            $campaign = $routeCampaign instanceof Campaign
+                ? $routeCampaign
+                : (is_numeric($routeCampaign) ? Campaign::find((int) $routeCampaign) : null);
+
+            $startDate = $this->filled('start_date')
+                ? (string) $this->input('start_date')
+                : $campaign?->start_date?->toDateString();
+
+            $endDate = $this->filled('end_date')
+                ? (string) $this->input('end_date')
+                : $campaign?->end_date?->toDateString();
+
+            if ($startDate && $endDate) {
+                $start = Carbon::parse($startDate)->startOfDay();
+                $end = Carbon::parse($endDate)->startOfDay();
+                if ($end->lt($start)) {
+                    $validator->errors()->add(
+                        'end_date',
+                        'Tanggal berakhir kampanye harus sama dengan atau setelah tanggal mulai.'
+                    );
+                }
+            }
+        });
     }
 }
