@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="space-y-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Dana Terkumpul</p>
                 <p class="text-2xl font-black text-teal-600 mt-2">
@@ -17,6 +17,18 @@
                 </p>
             </div>
 
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Dana Disalurkan</p>
+                <p class="text-2xl font-black text-slate-900 mt-2">
+                    Rp {{ number_format($stats['total_disbursed_funds'], 0, ',', '.') }}
+                </p>
+                <p class="text-[11px] text-slate-500 mt-1">
+                    Akumulasi dari <a href="{{ route('admin.disbursements.index') }}" class="font-bold text-teal-600 hover:underline">laporan penyaluran dana</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Kampanye Donasi</p>
                 <p class="text-2xl font-black text-slate-900 mt-2">

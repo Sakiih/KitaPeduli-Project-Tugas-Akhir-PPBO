@@ -213,6 +213,27 @@ class CampaignAndCategoryTest extends TestCase
         $this->getJson('/api/campaigns?sort=featured')
             ->assertOk()
             ->assertJsonPath('data.0.id', $olderFeatured->id);
+
+        $this->get('/kampanye?sort=latest')
+            ->assertOk()
+            ->assertSeeInOrder(['Kampanye Reguler Terbaru', 'Kampanye Unggulan Lama']);
+
+        $expiredCampaign = Campaign::create([
+            'category_id' => $category->id,
+            'created_by' => $admin->id,
+            'title' => 'Kampanye Sudah Lewat Tenggat',
+            'slug' => 'kampanye-sudah-lewat-tenggat',
+            'story' => 'Cerita.',
+            'target_amount' => 10000000,
+            'end_date' => now()->subDay()->toDateString(),
+            'organizer_name' => 'Yayasan C',
+            'status' => Campaign::STATUS_ACTIVE,
+        ]);
+
+        $this->get("/kampanye/{$expiredCampaign->slug}")
+            ->assertOk()
+            ->assertSee('berakhir')
+            ->assertDontSee('>active<', false);
     }
 
     public function test_campaign_update_validates_date_range_including_partial_updates(): void

@@ -61,7 +61,7 @@
                 <p class="text-xl font-black text-slate-900 mt-1">
                     {{ $summary['registered_count'] }} Terdaftar / {{ $summary['guest_count'] }} Guest
                 </p>
-                <p class="text-[11px] text-slate-500 mt-1">Seluruh transaksi tercatat di MySQL</p>
+                <p class="text-[11px] text-slate-500 mt-1">Seluruh transaksi tercatat di sistem</p>
             </div>
 
             <div class="bg-white rounded-3xl border border-slate-200 p-5 shadow-2xs">

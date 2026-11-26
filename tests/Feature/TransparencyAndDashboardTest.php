@@ -355,5 +355,19 @@ class TransparencyAndDashboardTest extends TestCase
         $this->actingAs($admin, 'sanctum')
             ->getJson('/api/admin/reports/donations?end_date=2026-05-10')
             ->assertOk();
+
+        $this->actingAs($admin, 'sanctum')
+            ->getJson('/api/admin/reports/donations?payment_method=ewallet')
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['payment_method']);
+
+        $this->actingAs($admin, 'sanctum')
+            ->getJson('/api/admin/reports/donations?campaign_id=999999')
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(['campaign_id']);
+
+        $this->actingAs($admin)
+            ->get('/admin/laporan?payment_method=ewallet&campaign_id=999999')
+            ->assertSessionHasErrors(['payment_method', 'campaign_id']);
     }
 }

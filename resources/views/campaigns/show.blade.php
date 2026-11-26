@@ -7,6 +7,9 @@
         $progress = $campaign->progressPercentage();
         $remainingDays = $campaign->remainingDays();
         $isAccepting = $campaign->isAcceptingDonations();
+        $statusLabel = ($campaign->status === \App\Models\Campaign::STATUS_ACTIVE && ! $isAccepting)
+            ? 'berakhir'
+            : $campaign->status;
     @endphp
 
     <div class="kp-container py-8">
@@ -37,7 +40,7 @@
                             </span>
                         @endif
                         <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase {{ $isAccepting ? 'bg-emerald-500 text-white' : 'bg-rose-600 text-white' }}">
-                            {{ $campaign->status }}
+                            {{ $statusLabel }}
                         </span>
                     </div>
 

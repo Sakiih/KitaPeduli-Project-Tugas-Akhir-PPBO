@@ -69,14 +69,21 @@ class WebIntegrationTest extends TestCase
         $this->assertEquals($initialCollected + 125000, (float) $campaign->fresh()->collected_amount);
 
         $admin = User::where('role', User::ROLE_ADMIN)->firstOrFail();
-        $this->actingAs($admin)->get('/admin/dashboard')->assertOk();
+        $this->actingAs($admin)->get('/admin/dashboard')
+            ->assertOk()
+            ->assertSee('Total Dana Disalurkan');
         $this->actingAs($admin)->get('/admin/kampanye')->assertOk();
+        $this->actingAs($admin)->get("/admin/kampanye/{$campaign->id}/edit")
+            ->assertOk()
+            ->assertSee('name="start_date"', false);
         $this->actingAs($admin)->get('/admin/kategori')->assertOk();
         $this->actingAs($admin)->get('/admin/kabar-terbaru')->assertOk();
         $this->actingAs($admin)->get('/admin/penyaluran-dana')->assertOk();
         $this->actingAs($admin)->get('/admin/transaksi-donasi')->assertOk();
         $this->actingAs($admin)->get('/admin/pengguna')->assertOk();
-        $this->actingAs($admin)->get('/admin/laporan')->assertOk();
+        $this->actingAs($admin)->get('/admin/laporan')
+            ->assertOk()
+            ->assertDontSee('MySQL');
 
         $donor = User::where('role', User::ROLE_DONOR)->firstOrFail();
         $this->actingAs($donor)->get('/donatur/dashboard')->assertOk();

@@ -70,7 +70,7 @@
                                id="donation-amount-input"
                                name="amount"
                                min="1000"
-                               step="1000"
+                               step="1"
                                required
                                value="{{ old('amount', 100000) }}"
                                placeholder="Minimal 1000"

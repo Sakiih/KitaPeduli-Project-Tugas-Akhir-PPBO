@@ -13,6 +13,7 @@ use App\Models\Payment;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AdminDashboardApiController extends Controller
 {
@@ -64,9 +65,14 @@ class AdminDashboardApiController extends Controller
         }
 
         $request->validate([
+            'campaign_id' => ['nullable', 'integer', 'exists:campaigns,id'],
+            'payment_method' => ['nullable', 'string', Rule::in([Payment::METHOD_QRIS, Payment::METHOD_BANK_TRANSFER])],
             'start_date' => ['nullable', 'date'],
             'end_date' => $endDateRules,
         ], [
+            'campaign_id.integer' => 'ID kampanye tidak valid.',
+            'campaign_id.exists' => 'Kampanye tidak ditemukan.',
+            'payment_method.in' => 'Metode pembayaran harus bernilai qris atau bank_transfer.',
             'start_date.date' => 'Format tanggal mulai tidak valid.',
             'end_date.date' => 'Format tanggal akhir tidak valid.',
             'end_date.after_or_equal' => 'Tanggal akhir harus sama dengan atau setelah tanggal mulai.',

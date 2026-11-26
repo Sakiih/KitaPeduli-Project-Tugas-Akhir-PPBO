@@ -298,7 +298,7 @@ Aplikasi web **KitaPeduli** memiliki seluruh halaman yang telah terhubung langsu
 *(Catatan: Daftar lengkap tangkapan layar yang perlu dimasukkan ke laporan tersedia pada file `docs/report/SCREENSHOT_CHECKLIST.md`.)*
 
 ### 4.3 Pengujian REST API & Automated Test
-Seluruh **38 endpoint REST API** telah diimplementasikan dan diuji menggunakan **Automated Test PHPUnit (22 Passed, 166 Assertions)** serta didokumentasikan dalam koleksi Postman (`docs/api/KitaPeduli.postman_collection.json`). Rincian hasil pengujian aktual dapat dilihat pada `docs/report/TESTING_RESULTS.md`.
+Seluruh **38 endpoint REST API** telah diimplementasikan dan diuji menggunakan **Automated Test PHPUnit (28 Passed, 240 Assertions)** serta didokumentasikan dalam koleksi Postman (`docs/api/KitaPeduli.postman_collection.json`). Rincian hasil pengujian aktual dapat dilihat pada `docs/report/TESTING_RESULTS.md`.
 
 ---
 
@@ -308,7 +308,7 @@ Seluruh **38 endpoint REST API** telah diimplementasikan dan diuji menggunakan *
 1. Aplikasi **KitaPeduli** telah berhasil dibangun menggunakan **Laravel 13** dan **MySQL** sesuai dengan batasan ruang lingkup proyek.
 2. Empat pilar PBO (**Abstraksi, Inheritance, Encapsulation, dan Polymorphism**) serta prinsip **SOLID** berhasil diterapkan secara nyata pada arsitektur `PaymentMethod`, `QrisPayment`, `BankTransferPayment`, `PaymentMethodResolver`, pemecahan 9 controller Admin SRP, model domain, dan *Service Layer*.
 3. Fitur donasi mendukung baik **Donatur Terdaftar** (`user_id` terhubung ke akun) maupun **Guest** (`user_id = NULL`) dengan keamanan token akses transaksi (`X-Transaction-Token` / session) serta pencegahan *double-submit* dan saldo negatif menggunakan transaksi database atomik (`DB::transaction` dan `lockForUpdate`).
-4. Seluruh **38 endpoint REST API** dan antarmuka web **Laravel Blade** berbagi logika bisnis yang sama dan telah lulus seluruh skenario pengujian otomatis (**22 passed, 166 assertions**).
+4. Seluruh **38 endpoint REST API** dan antarmuka web **Laravel Blade** berbagi logika bisnis yang sama dan telah lulus seluruh skenario pengujian otomatis (**28 passed, 240 assertions**).
 
 ### 5.2 Saran
 1. Pada pengembangan tahap selanjutnya di luar ruang lingkup akademik saat ini, sistem notifikasi email otomatis dapat diaktifkan ketika simulasi pembayaran berhasil dikonfirmasi.
