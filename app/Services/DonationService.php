@@ -205,7 +205,7 @@ class DonationService
     private function generateUniqueReference(): string
     {
         do {
-            $reference = 'KP-' . now()->format('Ymd') . '-' . strtoupper(Str::random(8));
+            $reference = 'KP-'.now()->format('Ymd').'-'.strtoupper(Str::random(8));
         } while (Payment::where('reference', $reference)->exists());
 
         return $reference;

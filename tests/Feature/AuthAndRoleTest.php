@@ -6,6 +6,8 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Route;
+use RuntimeException;
 use Tests\TestCase;
 
 class AuthAndRoleTest extends TestCase
@@ -98,5 +100,25 @@ class AuthAndRoleTest extends TestCase
             ->assertUnauthorized()
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonPath('success', false);
+    }
+
+    public function test_api_500_response_hides_internal_exception_details_even_when_debug_is_enabled(): void
+    {
+        config(['app.debug' => true]);
+
+        Route::get('/api/_test/internal-error', function () {
+            throw new RuntimeException('SensitiveInternalSqlError SecretClassName');
+        });
+
+        $this->get('/api/_test/internal-error')
+            ->assertStatus(500)
+            ->assertHeader('Content-Type', 'application/json')
+            ->assertJson([
+                'success' => false,
+                'message' => 'Terjadi kesalahan pada server.',
+                'data' => null,
+            ])
+            ->assertDontSee('SensitiveInternalSqlError')
+            ->assertDontSee('RuntimeException');
     }
 }

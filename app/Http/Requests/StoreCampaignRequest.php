@@ -52,4 +52,33 @@ class StoreCampaignRequest extends FormRequest
             'is_verified_organizer' => filter_var($this->input('is_verified_organizer', true), FILTER_VALIDATE_BOOLEAN),
         ]);
     }
+
+    /** @return array<string, string> */
+    public function messages(): array
+    {
+        return [
+            'category_id.required' => 'Kategori kampanye wajib dipilih.',
+            'category_id.integer' => 'Kategori kampanye tidak valid.',
+            'category_id.exists' => 'Kategori kampanye tidak ditemukan.',
+            'title.required' => 'Judul kampanye wajib diisi.',
+            'title.max' => 'Judul kampanye maksimal 255 karakter.',
+            'short_description.max' => 'Ringkasan singkat maksimal 500 karakter.',
+            'story.required' => 'Cerita lengkap kampanye wajib diisi.',
+            'banner_image.image' => 'Banner kampanye harus berupa file gambar.',
+            'banner_image.mimes' => 'Format banner kampanye harus jpg, jpeg, png, atau webp.',
+            'banner_image.max' => 'Ukuran banner kampanye maksimal 4 MB.',
+            'target_amount.required' => 'Target dana kampanye wajib diisi.',
+            'target_amount.numeric' => 'Target dana kampanye harus berupa angka.',
+            'target_amount.min' => 'Target dana kampanye minimal Rp 100.000.',
+            'start_date.date' => 'Format tanggal mulai kampanye tidak valid.',
+            'end_date.required' => 'Tanggal berakhir kampanye wajib diisi.',
+            'end_date.date' => 'Format tanggal berakhir kampanye tidak valid.',
+            'end_date.after_or_equal' => 'Tanggal berakhir kampanye harus sama dengan atau setelah hari ini maupun tanggal mulai.',
+            'organizer_name.required' => 'Nama pengelola kampanye wajib diisi.',
+            'organizer_name.max' => 'Nama pengelola maksimal 255 karakter.',
+            'organizer_type.max' => 'Jenis lembaga pengelola maksimal 100 karakter.',
+            'organizer_description.max' => 'Deskripsi pengelola maksimal 1500 karakter.',
+            'status.in' => 'Status kampanye harus bernilai active, completed, atau inactive.',
+        ];
+    }
 }

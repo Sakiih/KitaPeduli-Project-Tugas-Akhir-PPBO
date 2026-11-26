@@ -61,7 +61,7 @@
                 <p class="text-xl font-black text-slate-900 mt-1">
                     {{ $summary['registered_count'] }} Terdaftar / {{ $summary['guest_count'] }} Guest
                 </p>
-                <p class="text-[11px] text-slate-500 mt-1">Seluruh transaksi tercatat di MySQL</p>
+                <p class="text-[11px] text-slate-500 mt-1">Seluruh transaksi tercatat di sistem</p>
             </div>
 
             <div class="bg-white rounded-3xl border border-slate-200 p-5 shadow-2xs">
@@ -95,7 +95,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
-                        @foreach($donations as $don)
+                        @forelse($donations as $don)
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3 px-3 text-slate-500">{{ $don->created_at?->format('d M Y, H:i') }}</td>
                                 <td class="py-3 px-3 font-mono font-bold text-slate-900">{{ $don->payment?->reference ?? '-' }}</td>
@@ -105,7 +105,13 @@
                                 <td class="py-3 px-3 uppercase font-semibold text-slate-600">{{ $don->payment?->payment_method ?? '-' }}</td>
                                 <td class="py-3 px-3 font-extrabold text-teal-700">Rp {{ number_format((float) $don->amount, 0, ',', '.') }}</td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="7" class="py-8 px-4 text-center text-xs text-slate-500">
+                                    Belum ada transaksi donasi berhasil pada rentang filter ini.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

@@ -56,5 +56,5 @@ Gunakan daftar periksa ini saat mengambil tangkapan layar (*screenshot*) aplikas
 - **20. Postman: `POST /api/donations` (Guest Donation `user_id: null` & `access_token`)**
 - **21. Postman: `POST /api/payments/{reference}/simulate-success` dengan Header `X-Transaction-Token`**
 - **22. Postman: `GET /api/admin/dashboard` dengan Bearer Token Admin**
-- **23. Terminal: Hasil Eksekusi `php artisan test` (22 Passed, 166 Assertions)**
+- **23. Terminal: Hasil Eksekusi `php artisan test` (28 Passed, 240 Assertions)**
 - **24. GitHub: Halaman Utama Repository & Riwayat Commit Kelompok**

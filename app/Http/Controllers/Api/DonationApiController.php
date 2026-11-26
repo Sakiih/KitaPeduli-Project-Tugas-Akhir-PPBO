@@ -161,7 +161,7 @@ class DonationApiController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Daftar Doa-doa Orang Baik berhasil diambil.',
-            'data' => $donations->getCollection()->map(fn(Donation $d) => $d->toPublicPrayerArray($currentUserId)),
+            'data' => $donations->getCollection()->map(fn (Donation $d) => $d->toPublicPrayerArray($currentUserId)),
             'meta' => [
                 'current_page' => $donations->currentPage(),
                 'last_page' => $donations->lastPage(),

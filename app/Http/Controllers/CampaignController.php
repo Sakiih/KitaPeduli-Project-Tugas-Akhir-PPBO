@@ -44,7 +44,7 @@ class CampaignController extends Controller
             'ending_soon' => $query->orderBy('end_date', 'asc'),
             'most_funded' => $query->orderByDesc('collected_amount'),
             'featured' => $query->orderByDesc('is_featured')->orderByDesc('created_at'),
-            default => $query->orderByDesc('is_featured')->orderByDesc('created_at'),
+            default => $query->orderByDesc('created_at')->orderByDesc('id'),
         };
 
         $campaigns = $query->paginate(9)->withQueryString();

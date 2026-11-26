@@ -131,7 +131,7 @@ class Donation extends Model
             'donor_name' => $this->publicDonorName(),
             'is_anonymous' => (bool) $this->is_anonymous,
             'amount' => (float) $this->amount,
-            'formatted_amount' => 'Rp ' . number_format((float) $this->amount, 0, ',', '.'),
+            'formatted_amount' => 'Rp '.number_format((float) $this->amount, 0, ',', '.'),
             'donor_message' => $this->donor_message,
             'amen_count' => (int) $this->amen_count,
             'has_amened' => $hasAmened,

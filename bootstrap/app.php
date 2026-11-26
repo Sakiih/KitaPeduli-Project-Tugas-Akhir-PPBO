@@ -103,7 +103,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
                 return response()->json([
                     'success' => false,
-                    'message' => config('app.debug') ? $e->getMessage() : 'Terjadi kesalahan pada basis data.',
+                    'message' => 'Terjadi kesalahan pada basis data.',
                     'data' => null,
                 ], 500);
             }
@@ -111,11 +111,15 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(function (HttpExceptionInterface $e, Request $request) use ($isApiRequest) {
             if ($isApiRequest($request)) {
+                $statusCode = $e->getStatusCode();
+
                 return response()->json([
                     'success' => false,
-                    'message' => $e->getMessage() ?: 'Permintaan tidak dapat diproses.',
+                    'message' => $statusCode >= 500
+                        ? 'Terjadi kesalahan pada server.'
+                        : ($e->getMessage() ?: 'Permintaan tidak dapat diproses.'),
                     'data' => null,
-                ], $e->getStatusCode());
+                ], $statusCode);
             }
         });
 
@@ -123,7 +127,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if ($isApiRequest($request)) {
                 return response()->json([
                     'success' => false,
-                    'message' => config('app.debug') ? $e->getMessage() : 'Terjadi kesalahan pada server.',
+                    'message' => 'Terjadi kesalahan pada server.',
                     'data' => null,
                 ], 500);
             }

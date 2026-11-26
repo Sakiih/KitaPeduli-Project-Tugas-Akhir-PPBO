@@ -106,7 +106,7 @@ Buka browser dan akses: **`http://127.0.0.1:8000`**
 
 ## 5. Pengujian Otomatis & REST API
 
-Untuk menjalankan seluruh rangkaian *Unit Test* dan *Feature Test* (22 test terisolasi menggunakan in-memory SQLite tanpa mengganggu database MySQL utama):
+Untuk menjalankan seluruh rangkaian *Unit Test* dan *Feature Test* (28 test, 240 assertions terisolasi menggunakan in-memory SQLite tanpa mengganggu database MySQL utama):
 
 ```powershell
 php artisan test
