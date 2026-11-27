@@ -21,20 +21,28 @@ class WebIntegrationTest extends TestCase
 
         $this->get('/')->assertOk()->assertSee('KitaPeduli');
         $this->get('/tentang-kami')->assertOk()->assertSee('Pedoman Kebaikan');
-        $this->get('/kampanye')->assertOk()->assertSee('Jelajahi Kampanye KitaPeduli');
+        $this->get('/kampanye')->assertOk()->assertSeeText('Jelajahi Kampanye KitaPeduli');
 
         $campaign = Campaign::where('status', Campaign::STATUS_ACTIVE)->firstOrFail();
 
         $this->get("/kampanye/{$campaign->slug}")
             ->assertOk()
-            ->assertSee('1. Cerita Penggalangan Dana')
-            ->assertSee('2. Kabar Terbaru')
-            ->assertSee('3. Pencairan Dana / Laporan Penyaluran')
-            ->assertSee('4. Informasi Pengelola Kampanye')
-            ->assertSee('5. Ringkasan Donasi Kampanye')
-            ->assertSee('6. Doa-doa Orang Baik')
-            ->assertSee('7. Pedoman Kebaikan')
-            ->assertSee('8. FAQ Singkat');
+            ->assertSee('id="cerita-kampanye"', false)
+            ->assertSeeText('Cerita Penggalangan Dana')
+            ->assertSee('id="kabar-terbaru"', false)
+            ->assertSeeText('Kabar Terbaru')
+            ->assertSee('id="laporan-penyaluran"', false)
+            ->assertSeeText('Pencairan Dana & Penyaluran')
+            ->assertSee('id="informasi-pengelola"', false)
+            ->assertSeeText('Informasi Pengelola Kampanye')
+            ->assertSee('id="ringkasan-donasi"', false)
+            ->assertSeeText('Ringkasan Donasi')
+            ->assertSee('id="doa-orang-baik"', false)
+            ->assertSeeText('Doa-doa Orang Baik')
+            ->assertSee('id="pedoman-kebaikan"', false)
+            ->assertSeeText('Pedoman Kebaikan')
+            ->assertSee('id="faq-kampanye"', false)
+            ->assertSeeText('FAQ Singkat');
 
         $this->get("/kampanye/{$campaign->slug}/donasi")->assertOk();
 

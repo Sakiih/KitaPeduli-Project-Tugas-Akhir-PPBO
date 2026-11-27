@@ -61,9 +61,7 @@
                 <p class="text-xl font-extrabold text-[#122620] mt-1">
                     {{ $summary['registered_count'] }} Terdaftar / {{ $summary['guest_count'] }} Guest
                 </p>
-                <p class="text-[11px] text-slate-500 mt-1">Seluruh transaksi tercatat di MySQL</p>
-                <p class="text-[11px] text-[#52665f] mt-1">Seluruh transaksi tercatat di database</p>
-                <p class="text-[11px] text-slate-500 mt-1">Seluruh transaksi tercatat di sistem</p>
+                <p class="text-[11px] text-[#52665f] mt-1">Seluruh transaksi tercatat di sistem</p>
             </div>
 
             <div class="kp-card p-5">
@@ -96,18 +94,8 @@
                             <th class="py-3 px-3">Nominal</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        @forelse($donations as $don)
-                            <tr class="hover:bg-slate-50">
-                                <td class="py-3 px-3 text-slate-500">{{ $don->created_at?->format('d M Y, H:i') }}</td>
-                                <td class="py-3 px-3 font-mono font-bold text-slate-900">{{ $don->payment?->reference ?? '-' }}</td>
-                                <td class="py-3 px-3 font-bold text-slate-900">{{ $don->donor_name }}</td>
-                                <td class="py-3 px-3">{{ $don->isGuest() ? 'Guest' : 'Terdaftar' }}</td>
-                                <td class="py-3 px-3 text-slate-700">{{ $don->campaign?->title ?? '-' }}</td>
-                                <td class="py-3 px-3 uppercase font-semibold text-slate-600">{{ $don->payment?->payment_method ?? '-' }}</td>
-                                <td class="py-3 px-3 font-extrabold text-teal-700">Rp {{ number_format((float) $don->amount, 0, ',', '.') }}</td>
                     <tbody class="divide-y divide-[#edf2ee]">
-                        @foreach($donations as $don)
+                        @forelse($donations as $don)
                             <tr class="hover:bg-[#f7faf8] transition-colors">
                                 <td class="py-3 px-3 text-[#647770]">{{ $don->created_at?->format('d M Y, H:i') }}</td>
                                 <td class="py-3 px-3 font-mono font-bold text-[#122620]">{{ $don->payment?->reference ?? '-' }}</td>
@@ -115,11 +103,11 @@
                                 <td class="py-3 px-3 text-[#52665f]">{{ $don->isGuest() ? 'Guest' : 'Terdaftar' }}</td>
                                 <td class="py-3 px-3 text-[#3c524b]">{{ $don->campaign?->title ?? '-' }}</td>
                                 <td class="py-3 px-3 uppercase font-semibold text-[#52665f]">{{ $don->payment?->payment_method ?? '-' }}</td>
-                                <td class="py-3 px-3 font-extrabold text-emerald-700">Rp {{ number_format((float) $don->amount, 0, ',', '.') }}</td>s
+                                <td class="py-3 px-3 font-extrabold text-emerald-700">Rp {{ number_format((float) $don->amount, 0, ',', '.') }}</td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="py-8 px-4 text-center text-xs text-slate-500">
+                                <td colspan="7" class="py-8 px-4 text-center text-xs text-[#647770]">
                                     Belum ada transaksi donasi berhasil pada rentang filter ini.
                                 </td>
                             </tr>

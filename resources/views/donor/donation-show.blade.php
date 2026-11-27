@@ -20,9 +20,13 @@
             <div class="kp-card-soft grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs p-5">
                 <div>
                     <span class="text-[#647770] block">Kampanye:</span>
-                    <a href="{{ route('campaigns.show', $donation->campaign->slug) }}" class="font-bold text-[#122620] hover:text-emerald-700">
-                        {{ $donation->campaign->title }}
-                    </a>
+                    @if($donation->campaign)
+                        <a href="{{ route('campaigns.show', $donation->campaign->slug) }}" class="font-bold text-[#122620] hover:text-emerald-700">
+                            {{ $donation->campaign->title }}
+                        </a>
+                    @else
+                        <span class="font-bold text-[#647770]">-</span>
+                    @endif
                 </div>
                 <div>
                     <span class="text-[#647770] block">Nominal Donasi:</span>

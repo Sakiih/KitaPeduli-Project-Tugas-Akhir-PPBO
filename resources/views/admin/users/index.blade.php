@@ -46,14 +46,8 @@
                             <th class="py-3 px-3 text-right">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        @forelse($users as $u)
-                            <tr class="hover:bg-slate-50">
-                                <td class="py-3.5 px-3 font-mono font-bold text-slate-700">#{{ $u->id }}</td>
-                                <td class="py-3.5 px-3 font-bold text-slate-900">{{ $u->name }}</td>
-                                <td class="py-3.5 px-3 text-slate-600">
                     <tbody class="divide-y divide-[#edf2ee]">
-                        @foreach($users as $u)
+                        @forelse($users as $u)
                             <tr class="hover:bg-[#f7faf8] transition-colors">
                                 <td class="py-3.5 px-3 font-mono font-bold text-[#3c524b]">#{{ $u->id }}</td>
                                 <td class="py-3.5 px-3 font-bold text-[#122620]">{{ $u->name }}</td>
@@ -74,16 +68,10 @@
                                         {{ $u->status }}
                                     </span>
                                 </td>
-                                <td class="py-3.5 px-3 text-right space-x-2">
-                                    <a href="{{ route('admin.users.show', $u->id) }}"
-                                       class="inline-block px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 font-bold text-slate-700"
-                                       class="kp-btn-secondary px-3 py-1.5 text-xs">
-                                        Detail
-                                    </a>
                                 <td class="py-3.5 px-3 text-right whitespace-nowrap">
                                     <div class="inline-flex items-center justify-end gap-1.5">
                                         <a href="{{ route('admin.users.show', $u->id) }}"
-                                           class="inline-block px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 font-bold text-slate-700">
+                                           class="kp-btn-secondary px-3 py-1.5 text-xs">
                                             Detail
                                         </a>
                                         @if((int) $u->id !== (int) auth()->id())
@@ -102,7 +90,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="py-8 px-4 text-center text-xs text-slate-500">
+                                <td colspan="7" class="py-8 px-4 text-center text-xs text-[#647770]">
                                     Belum ada pengguna yang sesuai dengan filter saat ini.
                                 </td>
                             </tr>

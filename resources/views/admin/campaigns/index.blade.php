@@ -55,13 +55,8 @@
                             <th class="py-3 px-2.5 text-right">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        @forelse($campaigns as $camp)
-                            <tr class="hover:bg-slate-50">
-                                <td class="py-3 px-2 max-w-[180px]">
-                                    <a href="{{ route('campaigns.show', $camp->slug) }}" class="font-bold text-slate-900 hover:text-teal-600 block truncate">
                     <tbody class="divide-y divide-[#edf2ee]">
-                        @foreach($campaigns as $camp)
+                        @forelse($campaigns as $camp)
                             <tr class="hover:bg-[#f7faf8] transition-colors">
                                 <td class="py-3.5 px-2.5 max-w-[190px]">
                                     <a href="{{ route('campaigns.show', $camp->slug) }}" class="font-bold text-[#122620] hover:text-emerald-700 block truncate">
@@ -119,7 +114,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="py-8 px-4 text-center text-xs text-slate-500">
+                                <td colspan="7" class="py-8 px-4 text-center text-xs text-[#647770]">
                                     Belum ada kampanye yang sesuai dengan filter saat ini.
                                 </td>
                             </tr>

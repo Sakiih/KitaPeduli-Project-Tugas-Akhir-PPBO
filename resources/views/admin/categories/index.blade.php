@@ -32,7 +32,6 @@
             <h2 class="text-base font-extrabold text-[#122620] mb-4">Daftar Kategori ({{ $categories->count() }})</h2>
             <div class="space-y-3">
                 @forelse($categories as $category)
-                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div class="kp-card-soft p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" class="flex-1 grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-center">
                             @csrf
@@ -75,7 +74,7 @@
                         </div>
                     </div>
                 @empty
-                    <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                    <div class="p-6 rounded-2xl bg-[#f6f8f6] border border-dashed border-[#d7e2da] text-center text-xs text-[#647770]">
                         Belum ada kategori kampanye yang terdaftar.
                     </div>
                 @endforelse
