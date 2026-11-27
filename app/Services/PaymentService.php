@@ -27,7 +27,7 @@ class PaymentService
             return false;
         }
 
-        if ($user !== null && $user->isAdmin()) {
+        if ($user !== null && $user->isAdmin() && $user->isActive()) {
             return true;
         }
 

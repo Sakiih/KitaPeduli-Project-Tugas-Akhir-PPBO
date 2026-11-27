@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Donation;
 use App\Models\Payment;
 use App\Models\User;
+use App\Services\PaymentService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -209,6 +210,30 @@ class DonationAndPaymentSimulationTest extends TestCase
 
         $this->actingAs($admin, 'sanctum')
             ->postJson("/api/payments/{$reference}/simulate-success")
+            ->assertForbidden()
+            ->assertJsonPath('success', false);
+    }
+
+    public function test_inactive_admin_cannot_access_payment_via_service_or_api(): void
+    {
+        $response = $this->postJson('/api/donations', [
+            'campaign_id' => $this->activeCampaign->id,
+            'donor_name' => 'Guest Pengujian',
+            'amount' => 100000,
+            'payment_method' => 'qris',
+        ])->assertCreated();
+
+        $reference = $response->json('data.payment.reference');
+        $payment = Payment::where('reference', $reference)->firstOrFail();
+
+        $inactiveAdmin = User::factory()->admin()->create([
+            'status' => User::STATUS_INACTIVE,
+        ]);
+
+        $this->assertFalse(app(PaymentService::class)->canAccessPayment($payment, $inactiveAdmin));
+
+        $this->actingAs($inactiveAdmin, 'sanctum')
+            ->getJson("/api/payments/{$reference}")
             ->assertForbidden()
             ->assertJsonPath('success', false);
     }
