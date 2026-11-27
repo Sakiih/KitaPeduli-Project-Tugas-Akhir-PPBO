@@ -6,14 +6,13 @@
 
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div class="lg:col-span-4 bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
-            <h2 class="text-base font-extrabold text-slate-900 mb-4">Tulis Kabar Terbaru</h2>
+        <div class="lg:col-span-4 kp-card p-6">
+            <h2 class="text-base font-extrabold text-[#122620] mb-4">Tulis Kabar Terbaru</h2>
             <form action="{{ route('admin.updates.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 <div>
-                    <label for="campaign_id" class="block text-xs font-bold text-slate-700 mb-1">Pilih Kampanye <span class="text-rose-600">*</span></label>
-                    <select id="campaign_id" name="campaign_id" required
-                            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <label for="campaign_id" class="block text-xs font-bold text-[#3c524b] mb-1.5">Pilih Kampanye <span class="text-rose-600">*</span></label>
+                    <select id="campaign_id" name="campaign_id" required class="kp-input text-xs!">
                         @foreach($campaigns as $camp)
                             <option value="{{ $camp->id }}" {{ (int) old('campaign_id') === $camp->id ? 'selected' : '' }}>
                                 {{ $camp->title }}
@@ -22,41 +21,49 @@
                     </select>
                 </div>
                 <div>
-                    <label for="title" class="block text-xs font-bold text-slate-700 mb-1">Judul Kabar <span class="text-rose-600">*</span></label>
+                    <label for="title" class="block text-xs font-bold text-[#3c524b] mb-1.5">Judul Kabar <span class="text-rose-600">*</span></label>
                     <input type="text" id="title" name="title" value="{{ old('title') }}" required
                            placeholder="Contoh: Penyaluran Bantuan Tahap 2"
-                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <div>
-                    <label for="content" class="block text-xs font-bold text-slate-700 mb-1">Isi Perkembangan <span class="text-rose-600">*</span></label>
+                    <label for="content" class="block text-xs font-bold text-[#3c524b] mb-1.5">Isi Perkembangan <span class="text-rose-600">*</span></label>
                     <textarea id="content" name="content" rows="4" required
                               placeholder="Tuliskan laporan perkembangan..."
-                              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">{{ old('content') }}</textarea>
+                              class="kp-input text-xs!">{{ old('content') }}</textarea>
                 </div>
                 <div>
-                    <label for="image" class="block text-xs font-bold text-slate-700 mb-1">Foto Dokumentasi (Opsional)</label>
+                    <label for="image" class="block text-xs font-bold text-[#3c524b] mb-1.5">Foto Dokumentasi (Opsional)</label>
                     <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp"
-                           class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <button type="submit"
-                        class="w-full py-2.5 px-4 rounded-full bg-slate-900 hover:bg-teal-600 text-white text-xs font-extrabold transition-colors cursor-pointer">
+                        class="kp-btn-accent w-full py-2.5 px-4 text-xs">
                     Publikasikan Kabar Terbaru
                 </button>
             </form>
         </div>
 
-        <div class="lg:col-span-8 bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs space-y-4">
-            <h2 class="text-base font-extrabold text-slate-900">Daftar Kabar Terbaru ({{ $updates->total() }})</h2>
+        <div class="lg:col-span-8 kp-card p-6 space-y-4">
+            <h2 class="text-base font-extrabold text-[#122620]">Daftar Kabar Terbaru ({{ $updates->total() }})</h2>
 
             @foreach($updates as $update)
+<<<<<<< Updated upstream
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+=======
+                <div class="kp-card-soft p-4 space-y-2">
+>>>>>>> Stashed changes
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <div>
-                            <span class="text-[11px] font-bold text-teal-700">{{ $update->campaign?->title }}</span>
-                            <h3 class="text-sm font-bold text-slate-900">{{ $update->title }}</h3>
+                            <span class="text-[11px] font-bold text-emerald-700">{{ $update->campaign?->title }}</span>
+                            <h3 class="text-sm font-bold text-[#122620]">{{ $update->title }}</h3>
                         </div>
                         <div class="flex items-center gap-2">
+<<<<<<< Updated upstream
                             <span class="text-[11px] text-slate-400">{{ $update->published_at?->format('d M Y, H:i') }}</span>
+=======
+                            <span class="text-[11px] text-[#647770]">{{ $update->published_at?->format('d M Y, H:i') }}</span>
+>>>>>>> Stashed changes
                             <form action="{{ route('admin.updates.destroy', $update->id) }}" method="POST"
                                   onsubmit="return confirm('Hapus kabar terbaru ini?')">
                                 @csrf
@@ -68,7 +75,7 @@
                             </form>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-600 leading-relaxed">{{ $update->content }}</p>
+                    <p class="text-xs text-[#52665f] leading-relaxed">{{ $update->content }}</p>
                 </div>
             @endforeach
 
