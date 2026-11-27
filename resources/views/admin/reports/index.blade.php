@@ -61,11 +61,8 @@
                 <p class="text-xl font-extrabold text-[#122620] mt-1">
                     {{ $summary['registered_count'] }} Terdaftar / {{ $summary['guest_count'] }} Guest
                 </p>
-<<<<<<< Updated upstream
                 <p class="text-[11px] text-slate-500 mt-1">Seluruh transaksi tercatat di MySQL</p>
-=======
                 <p class="text-[11px] text-[#52665f] mt-1">Seluruh transaksi tercatat di database</p>
->>>>>>> Stashed changes
             </div>
 
             <div class="kp-card p-5">

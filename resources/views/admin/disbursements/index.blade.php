@@ -30,11 +30,8 @@
                            class="kp-input text-xs!">
                 </div>
                 <div>
-<<<<<<< Updated upstream
                     <label for="amount" class="block text-xs font-bold text-slate-700 mb-1">Nominal Penyaluran (Rp) <span class="text-rose-600">*</span></label>
-=======
                     <label for="amount" class="block text-xs font-bold text-[#3c524b] mb-1.5">Nominal Penyaluran (Rp) <span class="text-rose-600">*</span></label>
->>>>>>> Stashed changes
                     <input type="number" id="amount" name="amount" min="1000" step="1000" value="{{ old('amount') }}" required
                            placeholder="500000"
                            class="kp-input text-xs!">
@@ -77,11 +74,8 @@
             <h2 class="text-base font-extrabold text-[#122620]">Catatan Penyaluran Dana ({{ $reports->total() }})</h2>
 
             @foreach($reports as $report)
-<<<<<<< Updated upstream
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-=======
                 <div class="kp-card-soft p-4 space-y-2">
->>>>>>> Stashed changes
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <div>
                             <span class="text-[11px] font-bold text-emerald-700">{{ $report->campaign?->title }}</span>

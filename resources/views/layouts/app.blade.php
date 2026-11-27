@@ -96,18 +96,14 @@
 
                 <button id="kp-mobile-menu-btn" type="button"
                         aria-label="Buka menu navigasi"
-<<<<<<< Updated upstream
-                        class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100">
-=======
+                        class="md:hidden p-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100"
                         class="md:hidden p-2 rounded-xl bg-white border border-[#dce6df] text-[#122620] hover:bg-emerald-50">
->>>>>>> Stashed changes
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
             </div>
 
-<<<<<<< Updated upstream
             <div id="kp-mobile-menu-panel" class="hidden md:hidden mt-3 pt-3 border-t border-slate-100 space-y-2">
                 <a href="{{ route('home') }}" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Beranda</a>
                 <a href="{{ route('campaigns.index') }}" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Jelajahi Kampanye</a>
@@ -116,7 +112,6 @@
                 <a href="{{ route('about') }}#faq" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">FAQ</a>
 
                 <div class="pt-2 border-t border-slate-100 flex flex-wrap gap-2">
-=======
             <div id="kp-mobile-menu-panel" class="hidden md:hidden mt-3 pt-3 border-t border-[#e3eae4] space-y-1.5 bg-white rounded-2xl p-3 shadow-sm">
                 <a href="{{ route('home') }}" class="block px-3.5 py-2 rounded-xl text-sm font-medium text-[#122620] hover:bg-emerald-50">Beranda</a>
                 <a href="{{ route('campaigns.index') }}" class="block px-3.5 py-2 rounded-xl text-sm font-medium text-[#122620] hover:bg-emerald-50">Jelajahi Kampanye</a>
@@ -125,7 +120,7 @@
                 <a href="{{ route('about') }}#faq" class="block px-3.5 py-2 rounded-xl text-sm font-medium text-[#122620] hover:bg-emerald-50">FAQ</a>
 
                 <div class="pt-2.5 mt-2 border-t border-[#e3eae4] flex flex-wrap gap-2">
->>>>>>> Stashed changes
+
                     @auth
                         @if(auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}" class="flex-1 text-center px-4 py-2.5 rounded-full bg-emerald-600 text-white text-xs font-bold">Panel Admin</a>

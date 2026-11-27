@@ -48,22 +48,16 @@
             <h2 class="text-base font-extrabold text-[#122620]">Daftar Kabar Terbaru ({{ $updates->total() }})</h2>
 
             @foreach($updates as $update)
-<<<<<<< Updated upstream
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
-=======
                 <div class="kp-card-soft p-4 space-y-2">
->>>>>>> Stashed changes
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <div>
                             <span class="text-[11px] font-bold text-emerald-700">{{ $update->campaign?->title }}</span>
                             <h3 class="text-sm font-bold text-[#122620]">{{ $update->title }}</h3>
                         </div>
                         <div class="flex items-center gap-2">
-<<<<<<< Updated upstream
                             <span class="text-[11px] text-slate-400">{{ $update->published_at?->format('d M Y, H:i') }}</span>
-=======
                             <span class="text-[11px] text-[#647770]">{{ $update->published_at?->format('d M Y, H:i') }}</span>
->>>>>>> Stashed changes
                             <form action="{{ route('admin.updates.destroy', $update->id) }}" method="POST"
                                   onsubmit="return confirm('Hapus kabar terbaru ini?')">
                                 @csrf

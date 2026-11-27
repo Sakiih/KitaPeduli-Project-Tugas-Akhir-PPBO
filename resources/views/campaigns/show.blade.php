@@ -36,11 +36,8 @@
                                 {{ $campaign->category->name }}
                             </span>
                         @endif
-<<<<<<< Updated upstream
                         <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase {{ $isAccepting ? 'bg-emerald-500 text-white' : 'bg-rose-600 text-white' }}">
-=======
                         <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase {{ $isAccepting ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white' }}">
->>>>>>> Stashed changes
                             {{ $campaign->status }}
                         </span>
                     </div>

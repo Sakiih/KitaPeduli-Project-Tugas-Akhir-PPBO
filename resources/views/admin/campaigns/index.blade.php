@@ -55,19 +55,16 @@
                             <th class="py-3 px-2.5 text-right">Aksi</th>
                         </tr>
                     </thead>
-<<<<<<< Updated upstream
                     <tbody class="divide-y divide-slate-100">
                         @foreach($campaigns as $camp)
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3 px-2 max-w-[180px]">
                                     <a href="{{ route('campaigns.show', $camp->slug) }}" class="font-bold text-slate-900 hover:text-teal-600 block truncate">
-=======
                     <tbody class="divide-y divide-[#edf2ee]">
                         @foreach($campaigns as $camp)
                             <tr class="hover:bg-[#f7faf8] transition-colors">
                                 <td class="py-3.5 px-2.5 max-w-[190px]">
                                     <a href="{{ route('campaigns.show', $camp->slug) }}" class="font-bold text-[#122620] hover:text-emerald-700 block truncate">
->>>>>>> Stashed changes
                                         {{ $camp->title }}
                                     </a>
                                     <span class="text-[11px] text-[#647770]">{{ $camp->donations_count }} transaksi</span>

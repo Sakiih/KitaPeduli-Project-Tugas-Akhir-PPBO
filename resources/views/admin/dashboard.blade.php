@@ -5,41 +5,34 @@
 @section('page_subtitle', 'Ringkasan aktual kampanye, transaksi donasi, dan transparansi KitaPeduli')
 
 @section('content')
-<<<<<<< Updated upstream
     <div class="space-y-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
             <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Dana Terkumpul</p>
                 <p class="text-2xl font-black text-teal-600 mt-2">
-=======
     <div class="space-y-7">
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
             <div class="kp-card p-6 bg-gradient-to-br from-white to-emerald-50/60">
                 <p class="text-xs font-bold uppercase tracking-wider text-[#647770]">Total Dana Terkumpul</p>
                 <p class="text-2xl font-extrabold text-emerald-700 mt-2">
->>>>>>> Stashed changes
                     Rp {{ number_format($stats['total_collected_funds'], 0, ',', '.') }}
                 </p>
                 <p class="text-[11px] text-[#52665f] mt-1">
                     Dari <strong>{{ $stats['successful_donations'] }}</strong> donasi berhasil
                 </p>
             </div>
-
-<<<<<<< Updated upstream
             <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Kampanye Donasi</p>
                 <p class="text-2xl font-black text-slate-900 mt-2">
                     {{ $stats['active_campaigns'] }} Aktif <span class="text-sm font-semibold text-slate-400">/ {{ $stats['total_campaigns'] }} Total</span>
                 </p>
                 <p class="text-[11px] text-slate-500 mt-1">
-=======
             <div class="kp-card p-6 bg-gradient-to-br from-white to-sky-50/50">
                 <p class="text-xs font-bold uppercase tracking-wider text-[#647770]">Kampanye Donasi</p>
                 <p class="text-2xl font-extrabold text-[#122620] mt-2">
                     {{ $stats['active_campaigns'] }} Aktif <span class="text-sm font-semibold text-[#647770]">/ {{ $stats['total_campaigns'] }} Total</span>
                 </p>
                 <p class="text-[11px] text-[#52665f] mt-1">
->>>>>>> Stashed changes
                     Tersebar di <strong>{{ $stats['total_categories'] }}</strong> kategori kampanye
                 </p>
             </div>
@@ -106,17 +99,14 @@
                                 <th class="py-2.5 px-3">Status</th>
                             </tr>
                         </thead>
-<<<<<<< Updated upstream
                         <tbody class="divide-y divide-slate-100">
                             @foreach($recentDonations as $don)
                                 <tr class="hover:bg-slate-50">
                                     <td class="py-3 px-3 font-mono font-bold text-slate-900">
-=======
                         <tbody class="divide-y divide-[#edf2ee]">
                             @foreach($recentDonations as $don)
                                 <tr class="hover:bg-[#f7faf8] transition-colors">
                                     <td class="py-3 px-3 font-mono font-bold text-[#122620]">
->>>>>>> Stashed changes
                                         {{ $don->payment?->reference ?? '-' }}
                                     </td>
                                     <td class="py-3 px-3">
@@ -151,16 +141,12 @@
                         Kelola Kampanye &rarr;
                     </a>
                 </div>
-
-<<<<<<< Updated upstream
                 <div class="space-y-4">
                     @foreach($topCampaigns as $camp)
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2">
-=======
                 <div class="space-y-3.5">
                     @foreach($topCampaigns as $camp)
                         <div class="kp-card-soft p-4 space-y-2">
->>>>>>> Stashed changes
                             <div class="flex items-start justify-between gap-2">
                                 <h3 class="text-xs font-bold text-[#122620] leading-snug">{{ $camp->title }}</h3>
                                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 shrink-0">

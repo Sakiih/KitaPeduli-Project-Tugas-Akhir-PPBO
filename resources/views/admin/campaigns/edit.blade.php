@@ -29,7 +29,6 @@
                 </div>
 
                 <div>
-<<<<<<< Updated upstream
                     <label for="target_amount" class="block text-xs font-bold text-slate-700 mb-1.5">Target Dana (Rp) <span class="text-rose-600">*</span></label>
                     <input type="number" id="target_amount" name="target_amount" min="100000" step="10000"
                            value="{{ old('target_amount', (float) $campaign->target_amount) }}" required
@@ -38,7 +37,6 @@
 
                 <div>
                     <label for="end_date" class="block text-xs font-bold text-slate-700 mb-1.5">Tanggal Berakhir <span class="text-rose-600">*</span></label>
-=======
                     <label for="target_amount" class="block text-xs font-bold text-[#3c524b] mb-1.5">Target Dana (Rp) <span class="text-rose-600">*</span></label>
                     <input type="number" id="target_amount" name="target_amount" min="100000" step="10000"
                            value="{{ old('target_amount', (float) $campaign->target_amount) }}" required
@@ -47,19 +45,15 @@
 
                 <div>
                     <label for="end_date" class="block text-xs font-bold text-[#3c524b] mb-1.5">Tanggal Berakhir <span class="text-rose-600">*</span></label>
->>>>>>> Stashed changes
                     <input type="date" id="end_date" name="end_date" value="{{ old('end_date', $campaign->end_date?->toDateString()) }}" required
                            class="kp-input">
                 </div>
 
                 <div>
-<<<<<<< Updated upstream
                     <label for="status" class="block text-xs font-bold text-slate-700 mb-1.5">Status Kampanye</label>
                     <select id="status" name="status" class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm">
-=======
                     <label for="status" class="block text-xs font-bold text-[#3c524b] mb-1.5">Status Kampanye</label>
                     <select id="status" name="status" class="kp-input">
->>>>>>> Stashed changes
                         <option value="active" {{ old('status', $campaign->status) === 'active' ? 'selected' : '' }}>active</option>
                         <option value="completed" {{ old('status', $campaign->status) === 'completed' ? 'selected' : '' }}>completed</option>
                         <option value="inactive" {{ old('status', $campaign->status) === 'inactive' ? 'selected' : '' }}>inactive</option>

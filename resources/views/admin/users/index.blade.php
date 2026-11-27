@@ -46,21 +46,18 @@
                             <th class="py-3 px-3 text-right">Aksi</th>
                         </tr>
                     </thead>
-<<<<<<< Updated upstream
                     <tbody class="divide-y divide-slate-100">
                         @foreach($users as $u)
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3.5 px-3 font-mono font-bold text-slate-700">#{{ $u->id }}</td>
                                 <td class="py-3.5 px-3 font-bold text-slate-900">{{ $u->name }}</td>
                                 <td class="py-3.5 px-3 text-slate-600">
-=======
                     <tbody class="divide-y divide-[#edf2ee]">
                         @foreach($users as $u)
                             <tr class="hover:bg-[#f7faf8] transition-colors">
                                 <td class="py-3.5 px-3 font-mono font-bold text-[#3c524b]">#{{ $u->id }}</td>
                                 <td class="py-3.5 px-3 font-bold text-[#122620]">{{ $u->name }}</td>
                                 <td class="py-3.5 px-3 text-[#52665f]">
->>>>>>> Stashed changes
                                     {{ $u->email }}<br>
                                     <span class="text-[10px] text-[#647770]">{{ $u->phone ?? '-' }}</span>
                                 </td>
@@ -79,11 +76,8 @@
                                 </td>
                                 <td class="py-3.5 px-3 text-right space-x-2">
                                     <a href="{{ route('admin.users.show', $u->id) }}"
-<<<<<<< Updated upstream
-                                       class="inline-block px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 font-bold text-slate-700">
-=======
+                                       class="inline-block px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 font-bold text-slate-700"
                                        class="kp-btn-secondary px-3 py-1.5 text-xs">
->>>>>>> Stashed changes
                                         Detail
                                     </a>
 

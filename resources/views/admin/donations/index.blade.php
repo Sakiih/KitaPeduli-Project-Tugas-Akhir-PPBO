@@ -51,17 +51,14 @@
                             <th class="py-3 px-2">Status</th>
                         </tr>
                     </thead>
-<<<<<<< Updated upstream
                     <tbody class="divide-y divide-slate-100">
                         @foreach($donations as $don)
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3 px-1.5 text-slate-500 whitespace-nowrap">
-=======
                     <tbody class="divide-y divide-[#edf2ee]">
                         @foreach($donations as $don)
                             <tr class="hover:bg-[#f7faf8] transition-colors">
                                 <td class="py-3 px-2 text-[#647770] whitespace-nowrap">
->>>>>>> Stashed changes
                                     <span class="block">{{ $don->created_at?->format('d M Y') }}</span>
                                     <span class="text-[10px] text-[#7a8c85]">{{ $don->created_at?->format('H:i') }}</span>
                                 </td>
