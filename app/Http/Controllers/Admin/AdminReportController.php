@@ -9,12 +9,32 @@ use App\Models\Campaign;
 use App\Models\Donation;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class AdminReportController extends Controller
 {
     public function index(Request $request): View
     {
+        $endDateRules = ['nullable', 'date'];
+        if ($request->filled('start_date')) {
+            $endDateRules[] = 'after_or_equal:start_date';
+        }
+
+        $request->validate([
+            'campaign_id' => ['nullable', 'integer', 'exists:campaigns,id'],
+            'payment_method' => ['nullable', 'string', Rule::in([Payment::METHOD_QRIS, Payment::METHOD_BANK_TRANSFER])],
+            'start_date' => ['nullable', 'date'],
+            'end_date' => $endDateRules,
+        ], [
+            'campaign_id.integer' => 'ID kampanye tidak valid.',
+            'campaign_id.exists' => 'Kampanye yang dipilih tidak ditemukan.',
+            'payment_method.in' => 'Metode pembayaran harus bernilai qris atau bank_transfer.',
+            'start_date.date' => 'Format tanggal mulai tidak valid.',
+            'end_date.date' => 'Format tanggal akhir tidak valid.',
+            'end_date.after_or_equal' => 'Tanggal akhir harus sama dengan atau setelah tanggal mulai.',
+        ]);
+
         $campaigns = Campaign::orderBy('title')->get();
 
         $query = Donation::with(['campaign', 'payment', 'user'])

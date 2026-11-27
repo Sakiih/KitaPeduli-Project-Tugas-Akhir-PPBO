@@ -47,7 +47,7 @@ class CampaignApiController extends Controller
             'ending_soon' => $query->orderBy('end_date', 'asc'),
             'most_funded' => $query->orderByDesc('collected_amount'),
             'featured' => $query->orderByDesc('is_featured')->orderByDesc('created_at'),
-            default => $query->orderByDesc('is_featured')->orderByDesc('created_at'),
+            default => $query->orderByDesc('created_at')->orderByDesc('id'),
         };
 
         $perPage = min(50, max(1, (int) $request->query('per_page', 9)));

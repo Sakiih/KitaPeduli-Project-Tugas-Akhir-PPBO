@@ -6,7 +6,7 @@
 
 @section('content')
     <div class="space-y-8">
-        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Dana Terkumpul</p>
                 <p class="text-2xl font-black text-teal-600 mt-2">
@@ -21,6 +21,18 @@
                     Dari <strong>{{ $stats['successful_donations'] }}</strong> donasi berhasil
                 </p>
             </div>
+            <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Total Dana Disalurkan</p>
+                <p class="text-2xl font-black text-slate-900 mt-2">
+                    Rp {{ number_format($stats['total_disbursed_funds'], 0, ',', '.') }}
+                </p>
+                <p class="text-[11px] text-slate-500 mt-1">
+                    Akumulasi dari <a href="{{ route('admin.disbursements.index') }}" class="font-bold text-teal-600 hover:underline">laporan penyaluran dana</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div class="bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Kampanye Donasi</p>
                 <p class="text-2xl font-black text-slate-900 mt-2">
@@ -100,7 +112,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-slate-100">
-                            @foreach($recentDonations as $don)
+                            @forelse($recentDonations as $don)
                                 <tr class="hover:bg-slate-50">
                                     <td class="py-3 px-3 font-mono font-bold text-slate-900">
                         <tbody class="divide-y divide-[#edf2ee]">
@@ -128,7 +140,13 @@
                                         </span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="py-8 px-4 text-center text-xs text-slate-500">
+                                        Belum ada transaksi donasi terbaru.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -142,7 +160,7 @@
                     </a>
                 </div>
                 <div class="space-y-4">
-                    @foreach($topCampaigns as $camp)
+                    @forelse($topCampaigns as $camp)
                         <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-2">
                 <div class="space-y-3.5">
                     @foreach($topCampaigns as $camp)
@@ -161,7 +179,11 @@
                                 <span>{{ $camp->donor_count }} Donasi</span>
                             </div>
                         </div>
-                    @endforeach
+                    @empty
+                        <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                            Belum ada kampanye yang terdaftar.
+                        </div>
+                    @endforelse
                 </div>
             </div>
         </div>

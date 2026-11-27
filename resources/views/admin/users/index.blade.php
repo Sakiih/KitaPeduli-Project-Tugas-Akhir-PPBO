@@ -47,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
-                        @foreach($users as $u)
+                        @forelse($users as $u)
                             <tr class="hover:bg-slate-50">
                                 <td class="py-3.5 px-3 font-mono font-bold text-slate-700">#{{ $u->id }}</td>
                                 <td class="py-3.5 px-3 font-bold text-slate-900">{{ $u->name }}</td>
@@ -80,21 +80,33 @@
                                        class="kp-btn-secondary px-3 py-1.5 text-xs">
                                         Detail
                                     </a>
-
-                                    @if((int) $u->id !== (int) auth()->id())
-                                        <form action="{{ route('admin.users.status', $u->id) }}" method="POST" class="inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="status" value="{{ $u->isActive() ? 'inactive' : 'active' }}">
-                                            <button type="submit"
-                                                    class="px-3 py-1.5 rounded-full text-[11px] font-bold cursor-pointer {{ $u->isActive() ? 'bg-rose-50 text-rose-700 hover:bg-rose-100' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' }}">
-                                                {{ $u->isActive() ? 'Nonaktifkan' : 'Aktifkan' }}
-                                            </button>
-                                        </form>
-                                    @endif
+                                <td class="py-3.5 px-3 text-right whitespace-nowrap">
+                                    <div class="inline-flex items-center justify-end gap-1.5">
+                                        <a href="{{ route('admin.users.show', $u->id) }}"
+                                           class="inline-block px-3 py-1.5 rounded-full border border-slate-200 hover:bg-slate-100 font-bold text-slate-700">
+                                            Detail
+                                        </a>
+                                        @if((int) $u->id !== (int) auth()->id())
+                                            <form action="{{ route('admin.users.status', $u->id) }}" method="POST" class="inline">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="status" value="{{ $u->isActive() ? 'inactive' : 'active' }}">
+                                                <button type="submit"
+                                                        class="px-3 py-1.5 rounded-full text-[11px] font-bold cursor-pointer {{ $u->isActive() ? 'bg-rose-50 text-rose-700 hover:bg-rose-100' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100' }}">
+                                                    {{ $u->isActive() ? 'Nonaktifkan' : 'Aktifkan' }}
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="7" class="py-8 px-4 text-center text-xs text-slate-500">
+                                    Belum ada pengguna yang sesuai dengan filter saat ini.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

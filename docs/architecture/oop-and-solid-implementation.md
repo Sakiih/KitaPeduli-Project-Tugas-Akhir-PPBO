@@ -55,7 +55,7 @@ Dokumen ini menjelaskan secara rinci bukti implementasi nyata **4 Pilar Pemrogra
   $gateway = $this->paymentResolver->resolve($payment->payment_method);
   $instruction = $gateway->createInstruction($payment, $donation);
   ```
-  - Ketika `$payment->payment_method === 'qris'`, `$gateway` adalah objek `QrisPayment` dan `createInstruction()` menghasilkan payload QRIS simulasi, SVG/kode QR demo, nama merchant `"KitaPeduli Crowdfunding (DEMO)"`, serta langkah scan QR simulasi.
+  - Ketika `$payment->payment_method === 'qris'`, `$gateway` adalah objek `QrisPayment` dan `createInstruction()` menghasilkan payload QRIS simulasi, SVG/kode QR demo, nama merchant `"KitaPeduli Crowdfunding (Simulasi Demo)"`, serta langkah scan QR simulasi.
   - Ketika `$payment->payment_method === 'bank_transfer'`, `$gateway` adalah objek `BankTransferPayment` dan `createInstruction()` menghasilkan nomor Virtual Account simulasi, daftar bank demo, serta langkah transfer ATM/M-Banking simulasi.
 
 ---

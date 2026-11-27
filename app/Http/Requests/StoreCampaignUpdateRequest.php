@@ -23,4 +23,18 @@ class StoreCampaignUpdateRequest extends FormRequest
             'published_at' => ['nullable', 'date'],
         ];
     }
+
+    /** @return array<string, string> */
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Judul kabar terbaru wajib diisi.',
+            'title.max' => 'Judul kabar terbaru maksimal 255 karakter.',
+            'content.required' => 'Isi perkembangan kabar terbaru wajib diisi.',
+            'image.image' => 'Foto dokumentasi harus berupa file gambar.',
+            'image.mimes' => 'Format foto dokumentasi harus jpg, jpeg, png, atau webp.',
+            'image.max' => 'Ukuran foto dokumentasi maksimal 4 MB.',
+            'published_at.date' => 'Format waktu publikasi tidak valid.',
+        ];
+    }
 }

@@ -104,13 +104,12 @@
                 </button>
             </div>
 
-            <div id="kp-mobile-menu-panel" class="hidden md:hidden mt-3 pt-3 border-t border-slate-100 space-y-2">
+            <div id="kp-mobile-menu-panel" class="hidden lg:hidden mt-3 pt-3 border-t border-slate-100 space-y-2">
                 <a href="{{ route('home') }}" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Beranda</a>
                 <a href="{{ route('campaigns.index') }}" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Jelajahi Kampanye</a>
                 <a href="{{ route('about') }}" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Tentang Kami</a>
                 <a href="{{ route('about') }}#pedoman-kebaikan" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">Pedoman Kebaikan</a>
                 <a href="{{ route('about') }}#faq" class="block px-3 py-2 rounded-xl text-sm font-medium hover:bg-slate-100">FAQ</a>
-
                 <div class="pt-2 border-t border-slate-100 flex flex-wrap gap-2">
             <div id="kp-mobile-menu-panel" class="hidden md:hidden mt-3 pt-3 border-t border-[#e3eae4] space-y-1.5 bg-white rounded-2xl p-3 shadow-sm">
                 <a href="{{ route('home') }}" class="block px-3.5 py-2 rounded-xl text-sm font-medium text-[#122620] hover:bg-emerald-50">Beranda</a>
@@ -118,9 +117,7 @@
                 <a href="{{ route('about') }}" class="block px-3.5 py-2 rounded-xl text-sm font-medium text-[#122620] hover:bg-emerald-50">Tentang Kami</a>
                 <a href="{{ route('about') }}#pedoman-kebaikan" class="block px-3.5 py-2 rounded-xl text-sm font-medium text-[#122620] hover:bg-emerald-50">Pedoman Kebaikan</a>
                 <a href="{{ route('about') }}#faq" class="block px-3.5 py-2 rounded-xl text-sm font-medium text-[#122620] hover:bg-emerald-50">FAQ</a>
-
                 <div class="pt-2.5 mt-2 border-t border-[#e3eae4] flex flex-wrap gap-2">
-
                     @auth
                         @if(auth()->user()->isAdmin())
                             <a href="{{ route('admin.dashboard') }}" class="flex-1 text-center px-4 py-2.5 rounded-full bg-emerald-600 text-white text-xs font-bold">Panel Admin</a>

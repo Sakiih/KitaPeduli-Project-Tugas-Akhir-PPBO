@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuPanel = document.getElementById('kp-mobile-menu-panel');
     if (mobileMenuBtn && mobileMenuPanel) {
         mobileMenuBtn.addEventListener('click', () => {
-            mobileMenuPanel.classList.toggle('hidden');
+            const isHidden = mobileMenuPanel.classList.toggle('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
         });
     }
 
@@ -41,4 +42,73 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    const openModal = (modal) => {
+        if (!modal) return;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    };
+
+    const closeModal = (modal) => {
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    };
+
+    const editUpdateModal = document.getElementById('kp-edit-update-modal');
+    const editUpdateForm = document.getElementById('kp-edit-update-form');
+    if (editUpdateModal && editUpdateForm) {
+        document.querySelectorAll('[data-edit-update]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                editUpdateForm.setAttribute('action', btn.getAttribute('data-action') || '');
+                document.getElementById('kp-edit-update-campaign').textContent = btn.getAttribute('data-campaign-title') || '';
+                document.getElementById('edit_update_title').value = btn.getAttribute('data-title') || '';
+                document.getElementById('edit_update_content').value = btn.getAttribute('data-content') || '';
+                document.getElementById('edit_update_published_at').value = btn.getAttribute('data-published-at') || '';
+                document.getElementById('edit_update_image').value = '';
+                openModal(editUpdateModal);
+            });
+        });
+    }
+
+    const editDisbursementModal = document.getElementById('kp-edit-disbursement-modal');
+    const editDisbursementForm = document.getElementById('kp-edit-disbursement-form');
+    if (editDisbursementModal && editDisbursementForm) {
+        document.querySelectorAll('[data-edit-disbursement]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                editDisbursementForm.setAttribute('action', btn.getAttribute('data-action') || '');
+                document.getElementById('kp-edit-disbursement-campaign').textContent = btn.getAttribute('data-campaign-title') || '';
+                document.getElementById('edit_disbursement_title').value = btn.getAttribute('data-title') || '';
+                document.getElementById('edit_disbursement_amount').value = btn.getAttribute('data-amount') || '';
+                document.getElementById('edit_disbursement_recipient').value = btn.getAttribute('data-recipient-name') || '';
+                document.getElementById('edit_disbursement_purpose').value = btn.getAttribute('data-purpose') || '';
+                document.getElementById('edit_disbursement_date').value = btn.getAttribute('data-disbursed-at') || '';
+                document.getElementById('edit_disbursement_description').value = btn.getAttribute('data-description') || '';
+                document.getElementById('edit_disbursement_document').value = '';
+                openModal(editDisbursementModal);
+            });
+        });
+    }
+
+    document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            closeModal(document.getElementById(btn.getAttribute('data-close-modal')));
+        });
+    });
+
+    [editUpdateModal, editDisbursementModal].forEach((modal) => {
+        if (!modal) return;
+        modal.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                closeModal(modal);
+            }
+        });
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            closeModal(editUpdateModal);
+            closeModal(editDisbursementModal);
+        }
+    });
 });

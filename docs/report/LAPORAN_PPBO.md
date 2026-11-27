@@ -91,7 +91,7 @@ Berdasarkan lingkungan pengembangan aktual yang digunakan pada proyek ini:
 6. Pencatatan laporan penyaluran dana memeriksa sisa saldo kampanye di dalam transaksi atomik (`DB::transaction()` + `lockForUpdate()`) dan menolak nominal yang menyebabkan saldo kampanye bernilai negatif.
 
 ### 3.3 Class Diagram
-Berikut adalah **Class Diagram** aplikasi KitaPeduli yang menunjukkan hubungan *Inheritance*, *Interface Implementation*, *Association*, *Composition*, dan *Dependency*:
+Berikut adalah ringkasan **Class Diagram** aplikasi KitaPeduli yang menunjukkan hubungan *Inheritance*, *Interface Implementation*, *Aggregation*, *Association*, *Composition*, dan *Dependency* (rincian lengkap seluruh atribut dan method tersedia pada `docs/architecture/class-diagram.md`):
 
 ```mermaid
 classDiagram
@@ -116,18 +116,18 @@ classDiagram
         +getLabel() string
         +formatCurrency(float amount) string
         #buildBaseMetadata(Payment payment, Donation donation) array
-        +createInstruction(Payment payment, Donation donation)* array
+        +createInstruction(Payment payment, Donation donation) array*
     }
 
     class QrisPayment {
         #string code = "qris"
-        #string label = "QRIS (Simulasi / Demo)"
+        #string label = "QRIS (Simulasi Demo)"
         +createInstruction(Payment payment, Donation donation) array
     }
 
     class BankTransferPayment {
         #string code = "bank_transfer"
-        #string label = "Transfer Bank / ATM (Simulasi / Demo)"
+        #string label = "Transfer Bank / ATM (Simulasi Demo)"
         +createInstruction(Payment payment, Donation donation) array
     }
 
@@ -136,6 +136,12 @@ classDiagram
         +register(PaymentMethodInterface method) void
         +resolve(string methodCode) PaymentMethodInterface
         +supportedMethods() array
+    }
+
+    class CampaignService {
+        +createCampaign(array data, User admin, UploadedFile? bannerFile) Campaign
+        +updateCampaign(Campaign campaign, array data, UploadedFile? bannerFile) Campaign
+        +deleteOrArchiveCampaign(Campaign campaign) array
     }
 
     class DonationService {
@@ -154,11 +160,18 @@ classDiagram
         +simulateSuccess(Payment payment) Payment
     }
 
+    class Category {
+        +int id
+        +string name
+        +string slug
+        +canBeDeleted() bool
+    }
+
     class Campaign {
         +int id
         +string title
-        +decimal target_amount
-        +decimal collected_amount
+        +float target_amount
+        +float collected_amount
         +string status
         +isAcceptingDonations() bool
         +recalculateCollectedAmount() void
@@ -170,7 +183,7 @@ classDiagram
         +int campaign_id
         +int? user_id
         +string donor_name
-        +decimal amount
+        +float amount
         +bool is_anonymous
         +string status
         +isGuest() bool
@@ -189,6 +202,28 @@ classDiagram
         +markAsPaid() void
     }
 
+    class CampaignUpdate {
+        +int id
+        +int campaign_id
+        +string title
+        +DateTime published_at
+    }
+
+    class FundDisbursementReport {
+        +int id
+        +int campaign_id
+        +string title
+        +float amount
+        +availableBalanceForCampaign(int campaignId, int? excludeReportId) float$
+        +recordForCampaign(int campaignId, User admin, array data) FundDisbursementReport$
+    }
+
+    class DonationReaction {
+        +int id
+        +int donation_id
+        +int user_id
+    }
+
     PaymentMethod ..|> PaymentMethodInterface
     QrisPayment --|> PaymentMethod
     BankTransferPayment --|> PaymentMethod
@@ -196,8 +231,19 @@ classDiagram
     PaymentMethodResolver o-- PaymentMethodInterface
     DonationService --> PaymentResolverInterface
     PaymentService --> PaymentResolverInterface
+    CampaignService ..> Campaign
+    DonationService ..> Donation
+    DonationService ..> Payment
+    DonationService ..> DonationReaction
+    PaymentService ..> Payment
+    PaymentService ..> Donation
+    PaymentService ..> Campaign
+    Category "1" --> "0..*" Campaign
     Campaign "1" --> "0..*" Donation
+    Campaign "1" *-- "0..*" CampaignUpdate
+    Campaign "1" *-- "0..*" FundDisbursementReport
     Donation "1" *-- "1" Payment
+    Donation "1" *-- "0..*" DonationReaction
 ```
 
 ---
@@ -298,7 +344,7 @@ Aplikasi web **KitaPeduli** memiliki seluruh halaman yang telah terhubung langsu
 *(Catatan: Daftar lengkap tangkapan layar yang perlu dimasukkan ke laporan tersedia pada file `docs/report/SCREENSHOT_CHECKLIST.md`.)*
 
 ### 4.3 Pengujian REST API & Automated Test
-Seluruh **38 endpoint REST API** telah diimplementasikan dan diuji menggunakan **Automated Test PHPUnit (22 Passed, 166 Assertions)** serta didokumentasikan dalam koleksi Postman (`docs/api/KitaPeduli.postman_collection.json`). Rincian hasil pengujian aktual dapat dilihat pada `docs/report/TESTING_RESULTS.md`.
+Seluruh **38 endpoint REST API** telah diimplementasikan dan diuji menggunakan **Automated Test PHPUnit (28 Passed, 240 Assertions)** serta didokumentasikan dalam koleksi Postman (`docs/api/KitaPeduli.postman_collection.json`). Rincian hasil pengujian aktual dapat dilihat pada `docs/report/TESTING_RESULTS.md`.
 
 ---
 
@@ -308,7 +354,7 @@ Seluruh **38 endpoint REST API** telah diimplementasikan dan diuji menggunakan *
 1. Aplikasi **KitaPeduli** telah berhasil dibangun menggunakan **Laravel 13** dan **MySQL** sesuai dengan batasan ruang lingkup proyek.
 2. Empat pilar PBO (**Abstraksi, Inheritance, Encapsulation, dan Polymorphism**) serta prinsip **SOLID** berhasil diterapkan secara nyata pada arsitektur `PaymentMethod`, `QrisPayment`, `BankTransferPayment`, `PaymentMethodResolver`, pemecahan 9 controller Admin SRP, model domain, dan *Service Layer*.
 3. Fitur donasi mendukung baik **Donatur Terdaftar** (`user_id` terhubung ke akun) maupun **Guest** (`user_id = NULL`) dengan keamanan token akses transaksi (`X-Transaction-Token` / session) serta pencegahan *double-submit* dan saldo negatif menggunakan transaksi database atomik (`DB::transaction` dan `lockForUpdate`).
-4. Seluruh **38 endpoint REST API** dan antarmuka web **Laravel Blade** berbagi logika bisnis yang sama dan telah lulus seluruh skenario pengujian otomatis (**22 passed, 166 assertions**).
+4. Seluruh **38 endpoint REST API** dan antarmuka web **Laravel Blade** berbagi logika bisnis yang sama dan telah lulus seluruh skenario pengujian otomatis (**28 passed, 240 assertions**).
 
 ### 5.2 Saran
 1. Pada pengembangan tahap selanjutnya di luar ruang lingkup akademik saat ini, sistem notifikasi email otomatis dapat diaktifkan ketika simulasi pembayaran berhasil dikonfirmasi.
