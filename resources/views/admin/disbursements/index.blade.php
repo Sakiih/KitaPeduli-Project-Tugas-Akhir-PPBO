@@ -6,14 +6,13 @@
 
 @section('content')
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div class="lg:col-span-4 bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs">
-            <h2 class="text-base font-extrabold text-slate-900 mb-4">Ajukan Pencairan Dana</h2>
+        <div class="lg:col-span-4 kp-card p-6">
+            <h2 class="text-base font-extrabold text-[#122620] mb-4">Ajukan Pencairan Dana</h2>
             <form action="{{ route('admin.disbursements.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                 @csrf
                 <div>
-                    <label for="campaign_id" class="block text-xs font-bold text-slate-700 mb-1">Pilih Kampanye <span class="text-rose-600">*</span></label>
-                    <select id="campaign_id" name="campaign_id" required
-                            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <label for="campaign_id" class="block text-xs font-bold text-[#3c524b] mb-1.5">Pilih Kampanye <span class="text-rose-600">*</span></label>
+                    <select id="campaign_id" name="campaign_id" required class="kp-input text-xs!">
                         @foreach($campaigns as $camp)
                             @php
                                 $availableBalance = max(0.0, (float) ($camp->total_collected_sum ?? 0) - (float) ($camp->total_disbursed_sum ?? 0));
@@ -25,63 +24,66 @@
                     </select>
                 </div>
                 <div>
-                    <label for="title" class="block text-xs font-bold text-slate-700 mb-1">Judul Penyaluran <span class="text-rose-600">*</span></label>
+                    <label for="title" class="block text-xs font-bold text-[#3c524b] mb-1.5">Judul Penyaluran <span class="text-rose-600">*</span></label>
                     <input type="text" id="title" name="title" value="{{ old('title') }}" required
                            placeholder="Contoh: Pencairan Tahap 1: Pembelian Logistik"
-                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <div>
                     <label for="amount" class="block text-xs font-bold text-slate-700 mb-1">Nominal Penyaluran (Rp) <span class="text-rose-600">*</span></label>
+                    <label for="amount" class="block text-xs font-bold text-[#3c524b] mb-1.5">Nominal Penyaluran (Rp) <span class="text-rose-600">*</span></label>
+                    <input type="number" id="amount" name="amount" min="1000" step="1000" value="{{ old('amount') }}" required
                     <input type="number" id="amount" name="amount" min="1000" step="1" value="{{ old('amount') }}" required
                            placeholder="500000"
-                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <div>
-                    <label for="recipient_name" class="block text-xs font-bold text-slate-700 mb-1">Penerima / Pihak Tujuan <span class="text-rose-600">*</span></label>
+                    <label for="recipient_name" class="block text-xs font-bold text-[#3c524b] mb-1.5">Penerima / Pihak Tujuan <span class="text-rose-600">*</span></label>
                     <input type="text" id="recipient_name" name="recipient_name" value="{{ old('recipient_name') }}" required
                            placeholder="Contoh: Posko Relawan / Rumah Sakit"
-                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <div>
-                    <label for="purpose" class="block text-xs font-bold text-slate-700 mb-1">Keperluan Penyaluran <span class="text-rose-600">*</span></label>
+                    <label for="purpose" class="block text-xs font-bold text-[#3c524b] mb-1.5">Keperluan Penyaluran <span class="text-rose-600">*</span></label>
                     <input type="text" id="purpose" name="purpose" value="{{ old('purpose') }}" required
                            placeholder="Contoh: Pengadaan 50 paket pangan"
-                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <div>
-                    <label for="disbursed_at" class="block text-xs font-bold text-slate-700 mb-1">Tanggal Penyaluran <span class="text-rose-600">*</span></label>
+                    <label for="disbursed_at" class="block text-xs font-bold text-[#3c524b] mb-1.5">Tanggal Penyaluran <span class="text-rose-600">*</span></label>
                     <input type="date" id="disbursed_at" name="disbursed_at" value="{{ old('disbursed_at', now()->toDateString()) }}" required
-                           class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <div>
-                    <label for="description" class="block text-xs font-bold text-slate-700 mb-1">Deskripsi Lengkap <span class="text-rose-600">*</span></label>
+                    <label for="description" class="block text-xs font-bold text-[#3c524b] mb-1.5">Deskripsi Lengkap <span class="text-rose-600">*</span></label>
                     <textarea id="description" name="description" rows="3" required
-                              class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">{{ old('description') }}</textarea>
+                              class="kp-input text-xs!">{{ old('description') }}</textarea>
                 </div>
                 <div>
-                    <label for="document_image" class="block text-xs font-bold text-slate-700 mb-1">Dokumentasi (Opsional)</label>
+                    <label for="document_image" class="block text-xs font-bold text-[#3c524b] mb-1.5">Dokumentasi (Opsional)</label>
                     <input type="file" id="document_image" name="document_image" accept="image/jpeg,image/png,image/webp"
-                           class="w-full px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                           class="kp-input text-xs!">
                 </div>
                 <button type="submit"
-                        class="w-full py-2.5 px-4 rounded-full bg-slate-900 hover:bg-teal-600 text-white text-xs font-extrabold transition-colors cursor-pointer">
+                        class="kp-btn-accent w-full py-2.5 px-4 text-xs">
                     Ajukan Pencairan
                 </button>
             </form>
         </div>
 
-        <div class="lg:col-span-8 bg-white rounded-3xl border border-slate-200 p-6 shadow-2xs space-y-4">
-            <h2 class="text-base font-extrabold text-slate-900">Catatan Penyaluran Dana ({{ $reports->total() }})</h2>
+        <div class="lg:col-span-8 kp-card p-6 space-y-4">
+            <h2 class="text-base font-extrabold text-[#122620]">Catatan Penyaluran Dana ({{ $reports->total() }})</h2>
 
             @forelse($reports as $report)
                 <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                <div class="kp-card-soft p-4 space-y-2">
                     <div class="flex flex-wrap items-center justify-between gap-2">
                         <div>
-                            <span class="text-[11px] font-bold text-teal-700">{{ $report->campaign?->title }}</span>
-                            <h3 class="text-sm font-bold text-slate-900">{{ $report->title }}</h3>
+                            <span class="text-[11px] font-bold text-emerald-700">{{ $report->campaign?->title }}</span>
+                            <h3 class="text-sm font-bold text-[#122620]">{{ $report->title }}</h3>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="px-3 py-1 rounded-full bg-teal-600 text-white text-xs font-extrabold">
+                            <span class="px-3 py-1 rounded-full bg-gradient-to-r from-emerald-600 to-sky-600 text-white text-xs font-extrabold">
                                 Rp {{ number_format((float) $report->amount, 0, ',', '.') }}
                             </span>
                             <button type="button"
@@ -108,12 +110,12 @@
                             </form>
                         </div>
                     </div>
-                    <p class="text-xs text-slate-500">
-                        Tanggal: <strong class="text-slate-800">{{ $report->disbursed_at?->format('d M Y') }}</strong> &bull;
-                        Penerima: <strong class="text-slate-800">{{ $report->recipient_name }}</strong> &bull;
-                        Tujuan: <strong class="text-slate-800">{{ $report->purpose }}</strong>
+                    <p class="text-xs text-[#647770]">
+                        Tanggal: <strong class="text-[#122620]">{{ $report->disbursed_at?->format('d M Y') }}</strong> &bull;
+                        Penerima: <strong class="text-[#122620]">{{ $report->recipient_name }}</strong> &bull;
+                        Tujuan: <strong class="text-[#122620]">{{ $report->purpose }}</strong>
                     </p>
-                    <p class="text-xs text-slate-600 leading-relaxed">{{ $report->description }}</p>
+                    <p class="text-xs text-[#52665f] leading-relaxed">{{ $report->description }}</p>
                 </div>
             @empty
                 <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">

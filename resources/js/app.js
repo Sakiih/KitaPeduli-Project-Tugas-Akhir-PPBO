@@ -34,11 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const value = btn.getAttribute('data-quick-amount');
                 amountInput.value = value;
                 quickAmountBtns.forEach((b) => {
-                    b.classList.remove('bg-slate-900', 'text-white', 'border-slate-900');
-                    b.classList.add('bg-white', 'text-slate-700', 'border-slate-200');
+                    b.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-xs');
+                    b.classList.add('bg-white', 'text-[#122620]', 'border-[#d7e2da]');
                 });
-                btn.classList.remove('bg-white', 'text-slate-700', 'border-slate-200');
-                btn.classList.add('bg-slate-900', 'text-white', 'border-slate-900');
+                btn.classList.remove('bg-white', 'text-[#122620]', 'border-[#d7e2da]');
+                btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600', 'shadow-xs');
             });
         });
     }

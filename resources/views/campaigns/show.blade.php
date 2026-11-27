@@ -13,75 +13,79 @@
     @endphp
 
     <div class="kp-container py-8">
-        <nav class="text-xs text-slate-500 mb-5 flex items-center gap-2">
-            <a href="{{ route('home') }}" class="hover:text-slate-900">Beranda</a>
+        <nav class="text-xs text-[#647770] mb-5 flex flex-wrap items-center gap-2">
+            <a href="{{ route('home') }}" class="hover:text-emerald-700 font-medium">Beranda</a>
             <span>/</span>
-            <a href="{{ route('campaigns.index') }}" class="hover:text-slate-900">Kampanye</a>
+            <a href="{{ route('campaigns.index') }}" class="hover:text-emerald-700 font-medium">Kampanye</a>
             @if($campaign->category)
                 <span>/</span>
-                <a href="{{ route('campaigns.index', ['category' => $campaign->category->slug]) }}" class="hover:text-slate-900">{{ $campaign->category->name }}</a>
+                <a href="{{ route('campaigns.index', ['category' => $campaign->category->slug]) }}" class="hover:text-emerald-700 font-medium">{{ $campaign->category->name }}</a>
             @endif
             <span>/</span>
-            <span class="text-slate-800 font-semibold truncate max-w-xs">{{ $campaign->title }}</span>
+            <span class="text-[#122620] font-bold truncate max-w-xs">{{ $campaign->title }}</span>
         </nav>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-            <div class="lg:col-span-8 space-y-8">
+            <div class="lg:col-span-8 space-y-7">
 
-                <div class="bg-white rounded-3xl border border-slate-200/80 overflow-hidden shadow-2xs">
-                    <div class="relative bg-slate-100 aspect-[16/9]">
+                <div class="kp-card overflow-hidden">
+                    <div class="relative bg-[#eef3ef] aspect-[16/9]">
                         <img src="{{ $campaign->bannerUrl() }}"
                              alt="{{ $campaign->title }}"
                              class="w-full h-full object-cover">
                         @if($campaign->category)
-                            <span class="absolute top-4 left-4 bg-white/95 text-slate-900 text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
+                            <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-xs text-[#122620] text-xs font-bold px-3.5 py-1.5 rounded-full shadow-xs">
                                 {{ $campaign->category->name }}
                             </span>
                         @endif
                         <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase {{ $isAccepting ? 'bg-emerald-500 text-white' : 'bg-rose-600 text-white' }}">
+                        <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase {{ $isAccepting ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white' }}">
+                            {{ $campaign->status }}
                             {{ $statusLabel }}
                         </span>
                     </div>
 
                     <div class="p-6 sm:p-8">
-                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight mb-3">
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-[#122620] tracking-tight leading-tight mb-3">
                             {{ $campaign->title }}
                         </h1>
                         @if($campaign->short_description)
-                            <p class="text-sm text-slate-600 leading-relaxed">
+                            <p class="text-sm text-[#52665f] leading-relaxed">
                                 {{ $campaign->short_description }}
                             </p>
                         @endif
 
-                        <div class="mt-6 pt-5 border-t border-slate-100 flex flex-wrap gap-2 text-xs font-semibold">
-                            <a href="#cerita-kampanye" class="px-3.5 py-1.5 rounded-full bg-slate-900 text-white">1. Cerita</a>
-                            <a href="#kabar-terbaru" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700">2. Kabar Terbaru ({{ $campaign->updates->count() }})</a>
-                            <a href="#laporan-penyaluran" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700">3. Pencairan Dana ({{ $campaign->disbursementReports->count() }})</a>
-                            <a href="#informasi-pengelola" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700">4. Pengelola</a>
-                            <a href="#ringkasan-donasi" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700">5. Ringkasan</a>
-                            <a href="#doa-orang-baik" class="px-3.5 py-1.5 rounded-full bg-teal-50 hover:bg-teal-100 text-teal-800">6. Doa-doa Orang Baik ({{ $prayers->total() }})</a>
-                            <a href="#pedoman-kebaikan" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700">7. Pedoman</a>
-                            <a href="#faq-kampanye" class="px-3.5 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700">8. FAQ</a>
+                        <div class="mt-6 pt-5 border-t border-[#edf2ee] flex flex-wrap gap-2 text-xs font-semibold">
+                            <a href="#cerita-kampanye" class="px-3.5 py-1.5 rounded-full bg-[#122620] text-white">Cerita</a>
+                            <a href="#kabar-terbaru" class="px-3.5 py-1.5 rounded-full bg-[#f2f6f3] hover:bg-emerald-50 text-[#3c524b]">Kabar Terbaru ({{ $campaign->updates->count() }})</a>
+                            <a href="#laporan-penyaluran" class="px-3.5 py-1.5 rounded-full bg-[#f2f6f3] hover:bg-emerald-50 text-[#3c524b]">Pencairan Dana ({{ $campaign->disbursementReports->count() }})</a>
+                            <a href="#informasi-pengelola" class="px-3.5 py-1.5 rounded-full bg-[#f2f6f3] hover:bg-emerald-50 text-[#3c524b]">Pengelola</a>
+                            <a href="#ringkasan-donasi" class="px-3.5 py-1.5 rounded-full bg-[#f2f6f3] hover:bg-emerald-50 text-[#3c524b]">Ringkasan</a>
+                            <a href="#doa-orang-baik" class="px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200/70 hover:bg-emerald-100 text-emerald-800">Doa Orang Baik ({{ $prayers->total() }})</a>
+                            <a href="#pedoman-kebaikan" class="px-3.5 py-1.5 rounded-full bg-[#f2f6f3] hover:bg-emerald-50 text-[#3c524b]">Pedoman</a>
+                            <a href="#faq-kampanye" class="px-3.5 py-1.5 rounded-full bg-[#f2f6f3] hover:bg-emerald-50 text-[#3c524b]">FAQ</a>
                         </div>
                     </div>
                 </div>
 
-                <section id="cerita-kampanye" class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-2xs">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">1. Cerita Penggalangan Dana</h2>
-                        <span class="text-xs text-slate-400">Berakhir: {{ $campaign->end_date?->format('d M Y') }}</span>
+                <section id="cerita-kampanye" class="kp-card p-6 sm:p-8">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-4 pb-3 border-b border-[#edf2ee]">
+                        <h2 class="text-lg sm:text-xl font-extrabold text-[#122620]">Cerita Penggalangan Dana</h2>
+                        <span class="px-3 py-1 rounded-full bg-sky-50 text-sky-800 text-xs font-semibold">
+                            Berakhir: {{ $campaign->end_date?->format('d M Y') }}
+                        </span>
                     </div>
-                    <div class="prose prose-slate max-w-none text-sm text-slate-700 leading-relaxed whitespace-pre-line">{{ $campaign->story }}</div>
+                    <div class="prose prose-slate max-w-none text-sm text-[#3c524b] leading-relaxed whitespace-pre-line">{{ $campaign->story }}</div>
                 </section>
 
-                <section id="kabar-terbaru" class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-2xs">
+                <section id="kabar-terbaru" class="kp-card p-6 sm:p-8">
                     <div class="flex items-center justify-between mb-5">
                         <div>
-                            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">2. Kabar Terbaru</h2>
-                            <p class="text-xs text-slate-500">Perkembangan pelaksanaan kampanye yang dipublikasikan oleh Admin</p>
+                            <h2 class="text-lg sm:text-xl font-extrabold text-[#122620]">Kabar Terbaru</h2>
+                            <p class="text-xs text-[#647770]">Perkembangan pelaksanaan kampanye yang dipublikasikan oleh Admin</p>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-bold">
+                        <span class="px-3 py-1 rounded-full bg-[#f2f6f3] text-[#122620] text-xs font-bold">
                             {{ $campaign->updates->count() }} Kabar
                         </span>
                     </div>
@@ -89,107 +93,107 @@
                     @if($campaign->updates->count() > 0)
                         <div class="space-y-4">
                             @foreach($campaign->updates as $update)
-                                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+                                <div class="kp-card-soft p-5 space-y-2">
                                     <div class="flex flex-wrap items-center justify-between gap-2">
-                                        <h3 class="font-bold text-slate-900 text-sm sm:text-base">{{ $update->title }}</h3>
-                                        <span class="text-xs text-slate-400 font-medium">
+                                        <h3 class="font-bold text-[#122620] text-sm sm:text-base">{{ $update->title }}</h3>
+                                        <span class="text-xs text-[#647770] font-medium">
                                             {{ $update->published_at?->format('d M Y, H:i') }}
                                         </span>
                                     </div>
-                                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">{{ $update->content }}</p>
+                                    <p class="text-xs sm:text-sm text-[#3c524b] leading-relaxed whitespace-pre-line">{{ $update->content }}</p>
                                     @if($update->imageUrl())
                                         <div class="pt-2">
-                                            <img src="{{ $update->imageUrl() }}" alt="{{ $update->title }}" class="rounded-xl max-h-64 object-cover border border-slate-200">
+                                            <img src="{{ $update->imageUrl() }}" alt="{{ $update->title }}" class="rounded-xl max-h-64 object-cover border border-[#dce6df]">
                                         </div>
                                     @endif
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                        <div class="p-6 rounded-2xl bg-[#f6f8f6] border border-dashed border-[#d7e2da] text-center text-xs text-[#647770]">
                             Belum ada kabar terbaru yang dipublikasikan untuk kampanye ini.
                         </div>
                     @endif
                 </section>
 
-                <section id="laporan-penyaluran" class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-2xs">
+                <section id="laporan-penyaluran" class="kp-card p-6 sm:p-8">
                     <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
                         <div>
-                            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">3. Pencairan Dana / Laporan Penyaluran</h2>
-                            <p class="text-xs text-slate-500">Catatan transparansi penyaluran dana kampanye</p>
+                            <h2 class="text-lg sm:text-xl font-extrabold text-[#122620]">Pencairan Dana &amp; Penyaluran</h2>
+                            <p class="text-xs text-[#647770]">Catatan transparansi penyaluran dana kampanye</p>
                         </div>
-                        <div class="text-right">
-                            <span class="text-[11px] text-slate-400 block">Total Tercatat Disalurkan</span>
-                            <span class="text-sm font-extrabold text-teal-700">Rp {{ number_format($totalDisbursed, 0, ',', '.') }}</span>
+                        <div class="text-right px-4 py-2 rounded-2xl bg-emerald-50 border border-emerald-200/70">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 block">Total Disalurkan</span>
+                            <span class="text-sm font-extrabold text-emerald-900">Rp {{ number_format($totalDisbursed, 0, ',', '.') }}</span>
                         </div>
                     </div>
 
                     @if($campaign->disbursementReports->count() > 0)
                         <div class="space-y-4">
                             @foreach($campaign->disbursementReports as $report)
-                                <div class="p-5 rounded-2xl bg-teal-50/40 border border-teal-200/70 space-y-2">
+                                <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-50/60 to-sky-50/50 border border-emerald-200/70 space-y-2">
                                     <div class="flex flex-wrap items-center justify-between gap-2">
                                         <div>
                                             <span class="text-[11px] font-bold text-teal-700 uppercase tracking-wider">
                                                 Tanggal Penyaluran: {{ $report->disbursed_at?->format('d M Y') }}
                                             </span>
-                                            <h3 class="font-bold text-slate-900 text-sm sm:text-base">{{ $report->title }}</h3>
+                                            <h3 class="font-bold text-[#122620] text-sm sm:text-base">{{ $report->title }}</h3>
                                         </div>
-                                        <span class="px-3.5 py-1.5 rounded-xl bg-teal-600 text-white text-xs font-extrabold">
+                                        <span class="px-3.5 py-1.5 rounded-full bg-gradient-to-r from-emerald-600 to-sky-600 text-white text-xs font-extrabold">
                                             Rp {{ number_format((float) $report->amount, 0, ',', '.') }}
                                         </span>
                                     </div>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-xs text-slate-600">
-                                        <p><strong class="text-slate-800">Penerima / Tujuan:</strong> {{ $report->recipient_name }}</p>
-                                        <p><strong class="text-slate-800">Keperluan:</strong> {{ $report->purpose }}</p>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1 text-xs text-[#3c524b]">
+                                        <p><strong class="text-[#122620]">Penerima / Tujuan:</strong> {{ $report->recipient_name }}</p>
+                                        <p><strong class="text-[#122620]">Keperluan:</strong> {{ $report->purpose }}</p>
                                     </div>
-                                    <p class="text-xs text-slate-600 leading-relaxed pt-1">{{ $report->description }}</p>
+                                    <p class="text-xs text-[#52665f] leading-relaxed pt-1">{{ $report->description }}</p>
                                     @if($report->documentUrl())
                                         <div class="pt-2">
-                                            <img src="{{ $report->documentUrl() }}" alt="Dokumentasi {{ $report->title }}" class="rounded-xl max-h-56 object-cover border border-teal-200">
+                                            <img src="{{ $report->documentUrl() }}" alt="Dokumentasi {{ $report->title }}" class="rounded-xl max-h-56 object-cover border border-emerald-200">
                                         </div>
                                     @endif
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                        <div class="p-6 rounded-2xl bg-[#f6f8f6] border border-dashed border-[#d7e2da] text-center text-xs text-[#647770]">
                             Belum ada catatan pencairan atau penyaluran dana untuk kampanye ini.
                         </div>
                     @endif
                 </section>
 
-                <section id="informasi-pengelola" class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-2xs">
-                    <h2 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-4">4. Informasi Pengelola Kampanye</h2>
-                    <div class="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-200/80">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-900 text-white flex items-center justify-center font-extrabold text-lg shrink-0">
+                <section id="informasi-pengelola" class="kp-card p-6 sm:p-8">
+                    <h2 class="text-lg sm:text-xl font-extrabold text-[#122620] mb-4">Informasi Pengelola Kampanye</h2>
+                    <div class="kp-card-soft flex items-start gap-4 p-5">
+                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-600 to-sky-600 text-white flex items-center justify-center font-extrabold text-lg shrink-0">
                             {{ strtoupper(substr($campaign->organizer_name, 0, 1)) }}
                         </div>
                         <div class="space-y-1">
                             <div class="flex flex-wrap items-center gap-2">
-                                <h3 class="font-bold text-slate-900 text-base">{{ $campaign->organizer_name }}</h3>
+                                <h3 class="font-bold text-[#122620] text-base">{{ $campaign->organizer_name }}</h3>
                                 @if($campaign->is_verified_organizer)
-                                    <span class="px-2.5 py-0.5 rounded-full bg-teal-100 text-teal-800 text-[11px] font-bold">
+                                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">
                                         Terverifikasi Admin KitaPeduli
                                     </span>
                                 @endif
                             </div>
-                            <p class="text-xs font-semibold text-slate-500">{{ $campaign->organizer_type ?? 'Lembaga / Pengelola Kampanye' }}</p>
-                            <p class="text-xs text-slate-600 leading-relaxed pt-1">
+                            <p class="text-xs font-semibold text-[#52665f]">{{ $campaign->organizer_type ?? 'Lembaga / Pengelola Kampanye' }}</p>
+                            <p class="text-xs text-[#52665f] leading-relaxed pt-1">
                                 {{ $campaign->organizer_description ?? 'Informasi pihak/organisasi pengelola kampanye ini dicatat dan diawasi langsung oleh Administrator KitaPeduli.' }}
                             </p>
                         </div>
                     </div>
                 </section>
 
-                <section id="doa-orang-baik" class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-2xs">
+                <section id="doa-orang-baik" class="kp-card p-6 sm:p-8">
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
                         <div>
-                            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">6. Doa-doa Orang Baik ({{ $prayers->total() }})</h2>
-                            <p class="text-xs text-slate-500">Daftar donatur publik dan pesan doa dari transaksi donasi yang telah berhasil</p>
+                            <h2 class="text-lg sm:text-xl font-extrabold text-[#122620]">Doa-doa Orang Baik ({{ $prayers->total() }})</h2>
+                            <p class="text-xs text-[#647770]">Daftar donatur publik dan pesan doa dari transaksi donasi yang telah berhasil</p>
                         </div>
                         @guest
-                            <a href="{{ route('login') }}" class="text-xs font-bold text-teal-600 hover:underline">
+                            <a href="{{ route('login') }}" class="text-xs font-bold text-emerald-700 hover:underline">
                                 Login sebagai Donatur untuk memberi Aamiin
                             </a>
                         @endguest
@@ -202,18 +206,18 @@
                                     $currentUserId = auth()->id();
                                     $hasAmened = $currentUserId && $prayerDonation->reactions->contains('user_id', $currentUserId);
                                 @endphp
-                                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+                                <div class="kp-card-soft p-5 space-y-3">
                                     <div class="flex items-start justify-between gap-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-10 h-10 rounded-full {{ $prayerDonation->is_anonymous ? 'bg-slate-300 text-slate-700' : 'bg-teal-600 text-white' }} flex items-center justify-center font-bold text-sm shrink-0">
+                                            <div class="w-10 h-10 rounded-full {{ $prayerDonation->is_anonymous ? 'bg-[#d5dfd8] text-[#3c524b]' : 'bg-gradient-to-br from-emerald-600 to-sky-600 text-white' }} flex items-center justify-center font-bold text-sm shrink-0">
                                                 {{ strtoupper(substr($prayerDonation->publicDonorName(), 0, 1)) }}
                                             </div>
                                             <div>
-                                                <h4 class="font-bold text-slate-900 text-sm">
+                                                <h4 class="font-bold text-[#122620] text-sm">
                                                     {{ $prayerDonation->publicDonorName() }}
                                                 </h4>
-                                                <p class="text-[11px] text-slate-500">
-                                                    Berdonasi <strong class="text-slate-800">Rp {{ number_format((float) $prayerDonation->amount, 0, ',', '.') }}</strong>
+                                                <p class="text-[11px] text-[#647770]">
+                                                    Berdonasi <strong class="text-[#122620]">Rp {{ number_format((float) $prayerDonation->amount, 0, ',', '.') }}</strong>
                                                     &bull; {{ $prayerDonation->created_at?->diffForHumans() }}
                                                 </p>
                                             </div>
@@ -225,21 +229,21 @@
                                                     <form action="{{ route('donations.amen.toggle', $prayerDonation->id) }}" method="POST">
                                                         @csrf
                                                         <button type="submit"
-                                                                class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5 {{ $hasAmened ? 'bg-teal-600 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:border-teal-600 hover:text-teal-700' }}">
+                                                                class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5 {{ $hasAmened ? 'bg-gradient-to-r from-emerald-600 to-sky-600 text-white' : 'bg-white border border-[#dce6df] text-[#122620] hover:border-emerald-500 hover:text-emerald-700' }}">
                                                             <span>Aamiin</span>
-                                                            <span class="px-1.5 py-0.2 rounded-full text-[11px] {{ $hasAmened ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-700' }}">
+                                                            <span class="px-1.5 py-0.2 rounded-full text-[11px] {{ $hasAmened ? 'bg-white/20 text-white' : 'bg-[#f2f6f3] text-[#122620]' }}">
                                                                 {{ $prayerDonation->amen_count }}
                                                             </span>
                                                         </button>
                                                     </form>
                                                 @else
-                                                    <span class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 text-xs font-semibold">
+                                                    <span class="px-3 py-1.5 rounded-full bg-white border border-[#dce6df] text-[#3c524b] text-xs font-semibold">
                                                         {{ $prayerDonation->amen_count }} Aamiin
                                                     </span>
                                                 @endif
                                             @else
                                                 <span title="Login sebagai Donatur Terdaftar untuk memberikan Aamiin"
-                                                      class="px-3 py-1.5 rounded-full bg-white border border-slate-200 text-slate-600 text-xs font-semibold">
+                                                      class="px-3 py-1.5 rounded-full bg-white border border-[#dce6df] text-[#3c524b] text-xs font-semibold">
                                                     {{ $prayerDonation->amen_count }} Aamiin
                                                 </span>
                                             @endauth
@@ -247,11 +251,11 @@
                                     </div>
 
                                     @if($prayerDonation->donor_message)
-                                        <p class="text-xs sm:text-sm text-slate-700 bg-white p-3.5 rounded-xl border border-slate-200/60">
+                                        <p class="text-xs sm:text-sm text-[#122620] bg-white p-3.5 rounded-xl border border-[#e3eae4]">
                                             {{ $prayerDonation->donor_message }}
                                         </p>
                                     @else
-                                        <p class="text-xs text-slate-400 italic">
+                                        <p class="text-xs text-[#7a8c85] italic">
                                             Donatur tidak menyertakan pesan khusus.
                                         </p>
                                     @endif
@@ -263,27 +267,27 @@
                             {{ $prayers->links() }}
                         </div>
                     @else
-                        <div class="p-6 rounded-2xl bg-slate-50 border border-dashed border-slate-200 text-center text-xs text-slate-500">
+                        <div class="p-6 rounded-2xl bg-[#f6f8f6] border border-dashed border-[#d7e2da] text-center text-xs text-[#647770]">
                             Belum ada doa atau transaksi donasi berhasil pada kampanye ini.
                         </div>
                     @endif
                 </section>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <section id="pedoman-kebaikan" class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-2xs space-y-3">
-                        <h2 class="text-base font-extrabold text-slate-900">7. Pedoman Kebaikan</h2>
-                        <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside leading-relaxed">
+                    <section id="pedoman-kebaikan" class="kp-card p-6 space-y-3">
+                        <h2 class="text-base font-extrabold text-[#122620]">Pedoman Kebaikan</h2>
+                        <ul class="text-xs text-[#52665f] space-y-2 list-disc list-inside leading-relaxed">
                             <li>Pastikan nominal dan metode simulasi pembayaran (QRIS atau Transfer Bank) dipilih dengan benar.</li>
                             <li>Gunakan fitur <strong>Donasi Anonim</strong> apabila Anda tidak ingin menampilkan nama asli di Doa-doa Orang Baik.</li>
                             <li>Seluruh pembayaran di aplikasi KitaPeduli adalah <strong>Simulasi / Demo</strong> untuk tugas akhir PPBO.</li>
                         </ul>
                     </section>
 
-                    <section id="faq-kampanye" class="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-2xs space-y-3">
-                        <h2 class="text-base font-extrabold text-slate-900">8. FAQ Singkat</h2>
-                        <div class="text-xs text-slate-600 space-y-2.5 leading-relaxed">
-                            <p><strong class="text-slate-800">Kapan donasi saya terhitung?</strong><br>Segera setelah Anda menekan tombol konfirmasi pada halaman simulasi pembayaran.</p>
-                            <p><strong class="text-slate-800">Apakah Guest bisa berdonasi?</strong><br>Ya, Guest dapat berdonasi tanpa login dan langsung melihat hasil transaksinya.</p>
+                    <section id="faq-kampanye" class="kp-card p-6 space-y-3">
+                        <h2 class="text-base font-extrabold text-[#122620]">FAQ Singkat</h2>
+                        <div class="text-xs text-[#52665f] space-y-2.5 leading-relaxed">
+                            <p><strong class="text-[#122620]">Kapan donasi saya terhitung?</strong><br>Segera setelah Anda menekan tombol konfirmasi pada halaman simulasi pembayaran.</p>
+                            <p><strong class="text-[#122620]">Apakah Guest bisa berdonasi?</strong><br>Ya, Guest dapat berdonasi tanpa login dan langsung melihat hasil transaksinya.</p>
                         </div>
                     </section>
                 </div>
@@ -291,35 +295,35 @@
             </div>
 
             <aside id="ringkasan-donasi" class="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
-                <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-7 shadow-sm space-y-5">
+                <div class="kp-card p-6 sm:p-7 space-y-5">
                     <div>
-                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">5. Ringkasan Donasi Kampanye</span>
-                        <p class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
+                        <span class="text-xs font-bold uppercase tracking-wider text-teal-700">Ringkasan Donasi</span>
+                        <p class="text-2xl sm:text-3xl font-extrabold text-[#122620] mt-1">
                             Rp {{ number_format((float) $campaign->collected_amount, 0, ',', '.') }}
                         </p>
-                        <p class="text-xs text-slate-500 mt-0.5">
-                            terkumpul dari target <strong class="text-slate-800">Rp {{ number_format((float) $campaign->target_amount, 0, ',', '.') }}</strong>
+                        <p class="text-xs text-[#647770] mt-0.5">
+                            terkumpul dari target <strong class="text-[#122620]">Rp {{ number_format((float) $campaign->target_amount, 0, ',', '.') }}</strong>
                         </p>
                     </div>
 
                     <div class="space-y-1.5">
-                        <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-teal-600 rounded-full" style="width: {{ $progress }}%"></div>
+                        <div class="w-full h-3 bg-[#eaf1ec] rounded-full overflow-hidden">
+                            <div class="h-full bg-gradient-to-r from-emerald-500 via-teal-500 to-sky-500 rounded-full" style="width: {{ $progress }}%"></div>
                         </div>
-                        <div class="flex justify-between text-xs font-bold text-slate-700">
-                            <span>{{ $progress }}% Tercapai</span>
+                        <div class="flex justify-between text-xs font-bold text-[#122620]">
+                            <span class="text-emerald-700">{{ $progress }}% Tercapai</span>
                             <span>{{ $campaign->donor_count }} Donasi Berhasil</span>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 pt-2">
-                        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/60">
-                            <p class="text-[11px] text-slate-400 font-medium">Jumlah Donasi</p>
-                            <p class="text-base font-extrabold text-slate-900">{{ $campaign->donor_count }} Transaksi</p>
+                    <div class="grid grid-cols-2 gap-3 pt-1">
+                        <div class="kp-card-soft p-3.5">
+                            <p class="text-[11px] text-[#647770] font-medium">Jumlah Donasi</p>
+                            <p class="text-base font-extrabold text-[#122620]">{{ $campaign->donor_count }} Transaksi</p>
                         </div>
-                        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/60">
-                            <p class="text-[11px] text-slate-400 font-medium">Sisa Waktu</p>
-                            <p class="text-base font-extrabold text-slate-900">
+                        <div class="kp-card-soft p-3.5">
+                            <p class="text-[11px] text-[#647770] font-medium">Sisa Waktu</p>
+                            <p class="text-base font-extrabold text-sky-700">
                                 @if($isAccepting)
                                     {{ $remainingDays }} Hari
                                 @else
@@ -335,15 +339,15 @@
                                 Anda login sebagai <strong>Admin</strong>. Gunakan akun Donatur atau mode Guest untuk menguji alur donasi.
                             </div>
                             <a href="{{ route('admin.campaigns.edit', $campaign->id) }}"
-                               class="block w-full text-center py-3.5 px-6 rounded-full bg-slate-900 hover:bg-slate-800 text-white text-sm font-extrabold transition-colors">
+                               class="kp-btn-primary w-full py-3.5 px-6 text-sm">
                                 Edit Kampanye Ini
                             </a>
                         @else
                             <a href="{{ route('donations.create', $campaign->slug) }}"
-                               class="block w-full text-center py-3.5 px-6 rounded-full bg-slate-900 hover:bg-teal-600 text-white text-sm font-extrabold shadow-sm transition-colors">
+                               class="kp-btn-accent w-full py-3.5 px-6 text-sm">
                                 Donasi Sekarang
                             </a>
-                            <p class="text-[11px] text-center text-slate-400">
+                            <p class="text-[11px] text-center text-[#647770]">
                                 Tersedia metode <strong>QRIS Simulasi</strong> dan <strong>Transfer Bank Simulasi</strong>
                             </p>
                         @endif

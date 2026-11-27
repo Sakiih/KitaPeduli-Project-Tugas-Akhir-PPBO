@@ -3,15 +3,17 @@
 @section('title', 'Jelajahi Kampanye | KitaPeduli')
 
 @section('content')
-    <div class="kp-container py-8 space-y-8">
-        <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-2xs flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
+    <div class="kp-container py-8 space-y-7">
+        <div class="kp-card p-6 sm:p-8 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6">
             <div>
-                <span class="inline-block px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-bold mb-2">
+                <span class="kp-pill bg-emerald-50 text-emerald-800 border border-emerald-200/70 mb-2">
                     Daftar Kampanye Aktif
                 </span>
-                <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Jelajahi Kampanye KitaPeduli</h1>
-                <p class="text-xs sm:text-sm text-slate-500 mt-1">
-                    Tersedia {{ $totalActiveCampaigns }} kampanye aktif yang dapat menerima dukungan dan doa Anda.
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-[#122620] tracking-tight">
+                    Jelajahi Kampanye <span class="text-emerald-600">KitaPeduli</span>
+                </h1>
+                <p class="text-xs sm:text-sm text-[#52665f] mt-1">
+                    Tersedia <strong>{{ $totalActiveCampaigns }}</strong> kampanye aktif yang dapat menerima dukungan dan doa Anda.
                 </p>
             </div>
 
@@ -23,31 +25,31 @@
                        name="search"
                        value="{{ request('search') }}"
                        placeholder="Cari judul kampanye atau pengelola..."
-                       class="w-full sm:w-72 px-4 py-2.5 rounded-full bg-slate-100 border border-slate-200 text-sm focus:outline-none focus:bg-white focus:border-slate-900">
+                       class="kp-input rounded-full! sm:w-72! text-xs!">
 
                 <select name="sort"
                         onchange="this.form.submit()"
-                        class="px-4 py-2.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-semibold text-slate-700 focus:outline-none">
+                        class="px-4 py-2.5 rounded-full bg-[#f7faf8] border border-[#d7e2da] text-xs font-semibold text-[#122620] focus:outline-none focus:border-emerald-600">
                     <option value="latest" {{ $sort === 'latest' ? 'selected' : '' }}>Terbaru dan Unggulan</option>
                     <option value="ending_soon" {{ $sort === 'ending_soon' ? 'selected' : '' }}>Segera Berakhir</option>
                     <option value="most_funded" {{ $sort === 'most_funded' ? 'selected' : '' }}>Dana Terbanyak</option>
                 </select>
 
                 <button type="submit"
-                        class="px-5 py-2.5 rounded-full bg-slate-900 hover:bg-teal-600 text-white text-xs font-bold transition-colors cursor-pointer">
+                        class="kp-btn-primary px-5 py-2.5 text-xs shrink-0">
                     Terapkan Filter
                 </button>
             </form>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2 pb-1">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
             <a href="{{ route('campaigns.index', array_filter(['search' => request('search'), 'sort' => request('sort')])) }}"
-               class="px-4 py-2 rounded-full text-xs font-bold shrink-0 transition-colors {{ !request('category') ? 'bg-slate-900 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100' }}">
+               class="px-4 py-2 rounded-full text-xs font-bold shrink-0 transition-colors {{ !request('category') ? 'bg-[#122620] text-white' : 'bg-white border border-[#dce6df] text-[#3c524b] hover:bg-emerald-50' }}">
                 Semua Kategori ({{ $totalActiveCampaigns }})
             </a>
             @foreach($categories as $cat)
                 <a href="{{ route('campaigns.index', array_filter(['category' => $cat->slug, 'search' => request('search'), 'sort' => request('sort')])) }}"
-                   class="px-4 py-2 rounded-full text-xs font-bold shrink-0 transition-colors {{ request('category') === $cat->slug ? 'bg-teal-600 text-white' : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-100' }}">
+                   class="px-4 py-2 rounded-full text-xs font-bold shrink-0 transition-colors {{ request('category') === $cat->slug ? 'bg-gradient-to-r from-emerald-600 to-sky-600 text-white' : 'bg-white border border-[#dce6df] text-[#3c524b] hover:bg-emerald-50' }}">
                     {{ $cat->name }} ({{ $cat->campaigns_count }})
                 </a>
             @endforeach
@@ -64,11 +66,11 @@
                 {{ $campaigns->links() }}
             </div>
         @else
-            <div class="bg-white rounded-3xl border border-slate-200/80 p-12 text-center">
-                <h3 class="text-base font-bold text-slate-800 mb-1">Kampanye tidak ditemukan</h3>
-                <p class="text-xs text-slate-500 mb-4">Tidak ada kampanye aktif yang cocok dengan pencarian Anda.</p>
+            <div class="kp-card p-12 text-center">
+                <h3 class="text-base font-bold text-[#122620] mb-1">Kampanye tidak ditemukan</h3>
+                <p class="text-xs text-[#647770] mb-4">Tidak ada kampanye aktif yang cocok dengan pencarian Anda.</p>
                 <a href="{{ route('campaigns.index') }}"
-                   class="inline-block px-5 py-2.5 rounded-full bg-slate-900 text-white text-xs font-bold">
+                   class="kp-btn-primary px-5 py-2.5 text-xs">
                     Reset Pencarian
                 </a>
             </div>
