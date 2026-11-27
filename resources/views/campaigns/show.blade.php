@@ -39,9 +39,7 @@
                                 {{ $campaign->category->name }}
                             </span>
                         @endif
-                        <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase {{ $isAccepting ? 'bg-emerald-500 text-white' : 'bg-rose-600 text-white' }}">
                         <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold uppercase {{ $isAccepting ? 'bg-emerald-600 text-white' : 'bg-rose-600 text-white' }}">
-                            {{ $campaign->status }}
                             {{ $statusLabel }}
                         </span>
                     </div>
@@ -231,7 +229,7 @@
                                                         <button type="submit"
                                                                 class="px-3.5 py-1.5 rounded-full text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5 {{ $hasAmened ? 'bg-gradient-to-r from-emerald-600 to-sky-600 text-white' : 'bg-white border border-[#dce6df] text-[#122620] hover:border-emerald-500 hover:text-emerald-700' }}">
                                                             <span>Aamiin</span>
-                                                            <span class="px-1.5 py-0.2 rounded-full text-[11px] {{ $hasAmened ? 'bg-white/20 text-white' : 'bg-[#f2f6f3] text-[#122620]' }}">
+                                                            <span class="px-1.5 py-0.5 rounded-full text-[11px] {{ $hasAmened ? 'bg-white/20 text-white' : 'bg-[#f2f6f3] text-[#122620]' }}">
                                                                 {{ $prayerDonation->amen_count }}
                                                             </span>
                                                         </button>

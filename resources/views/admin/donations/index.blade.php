@@ -51,12 +51,8 @@
                             <th class="py-3 px-2">Status</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        @forelse($donations as $don)
-                            <tr class="hover:bg-slate-50">
-                                <td class="py-3 px-1.5 text-slate-500 whitespace-nowrap">
                     <tbody class="divide-y divide-[#edf2ee]">
-                        @foreach($donations as $don)
+                        @forelse($donations as $don)
                             <tr class="hover:bg-[#f7faf8] transition-colors">
                                 <td class="py-3 px-2 text-[#647770] whitespace-nowrap">
                                     <span class="block">{{ $don->created_at?->format('d M Y') }}</span>
@@ -102,7 +98,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="8" class="py-8 px-4 text-center text-xs text-slate-500">
+                                <td colspan="8" class="py-8 px-4 text-center text-xs text-[#647770]">
                                     Belum ada transaksi donasi yang sesuai dengan filter saat ini.
                                 </td>
                             </tr>
